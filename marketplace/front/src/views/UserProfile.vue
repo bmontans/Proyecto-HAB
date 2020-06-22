@@ -9,12 +9,14 @@
     ></userinfo>
     <div class="modal" v-show="editUser">
       <div class="modalBox">
-        <p class="editUser">Edita los datos del Usere</p>
+        <p class="editUser">Edita los datos del usuario</p>
         <p>Username:</p>
         <input type="text" v-model="newUsername" placeholder="Username" />
         <br />
+        <p>New email:</p>
         <input type="text" v-model="newEmail" placeholder="Email" />
         <br />
+        <p>New address:</p>
         <input type="text" v-model="newAddress" placeholder="Address" />
         <br />
         <button @click="updateUsers()">Actualizar</button>
@@ -70,15 +72,17 @@ export default {
     },
     updateUsers() {
       const self = this;
+      const data = localStorage.getItem("id");
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       axios
-        .put("http://localhost:3000/users/edit/" + self.id, {
+        .put("http://localhost:3000/user/" + data, {
           username: self.newUsername,
           email: self.newEmail,
-          address: self.newAddress,
-          id: self.id
+          address: self.newAddress
         })
         .then(function(response) {
-          self.editUser = false;
+          self.editUser = true;
           Swal.fire(
             "¡Usere actualizado correctamente!",
             "Pulsa OK para continuar.",
@@ -86,6 +90,54 @@ export default {
           );
           location.reload();
           console.log(response);
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+    },
+    updateUsers() {
+      const self = this;
+      const data = localStorage.getItem("id");
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios
+        .put("http://localhost:3000/user/" + data, {
+          username: self.newUsername,
+          email: self.newEmail,
+          address: self.newAddress,
+          id: self.id
+        })
+        .then(function(response) {
+          self.editUser = true;
+          Swal.fire(
+            "¡Usere actualizado correctamente!",
+            "Pulsa OK para continuar.",
+            "success"
+          );
+          location.reload();
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+    },
+    updatePassword() {
+      const self = this;
+      const data = localStorage.getItem("id");
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios
+        .put("http://localhost:3000/user/password/" + data, {
+          oldPassword: self.oldPassword,
+          newPassword: self.password,
+          newPasswordRepeat: self.passwordRepeat
+        })
+        .then(function(response) {
+          Swal.fire({
+            title: "Your password has been updated"
+          });
+          self.emptyFiledsPassword();
+          self.seeEditPassword = true;
         })
         .catch(function(error) {
           console.error(error);

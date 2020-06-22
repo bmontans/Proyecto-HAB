@@ -128,3 +128,7 @@ export function logOut() {
   deleteUsername();
   deleteAuth_Token();
 }
+
+export function formatDateToDB(date) {
+  return format(date, "MM-dd-yyyy");
+}

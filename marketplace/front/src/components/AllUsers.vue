@@ -29,9 +29,13 @@ export default {
       let data = this.users[index].id;
       this.$emit("borrar", data);
     },
-    updateuserEvent(index) {
+    updateUserEvent(index) {
       let data = this.users[index];
       this.$emit("editar", data);
+    },
+    updatePasswordEvent(index) {
+      let data = this.users[index];
+      this.$emit("password", data);
     }
   }
 };

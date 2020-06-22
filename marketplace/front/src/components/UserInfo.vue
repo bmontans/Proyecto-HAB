@@ -12,7 +12,7 @@
             <p>Birthdate: {{ user.birthdate }}</p>
             <p>Creation Date: {{ user.creation_date }}</p>
             <button @click="deleteUserEvent(index)">Borrar</button>
-            <button @click="updateUserEvent(index)">Editar</button>
+            <button @click="updateUserEvent()">Editar</button>
           </div>
         </li>
       </ul>
@@ -28,11 +28,11 @@ export default {
   },
   methods: {
     deleteUserEvent(index) {
-      let data = this.users[index].id;
+      let data = this.user[index].id;
       this.$emit("borrar", data);
     },
-    updateuserEvent(index) {
-      let data = this.users[index];
+    updateUserEvent() {
+      let data = this.user;
       this.$emit("editar", data);
     }
   }
