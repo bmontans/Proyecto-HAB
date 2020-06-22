@@ -16,7 +16,16 @@ export default {
   components: { showproducts },
   data() {
     return {
-      products: []
+      products: [],
+      newName: "",
+      newCategory: "",
+      newDescription: "",
+      newPrice: "",
+      editProduct: false,
+      oldName: "",
+      oldCategory: "",
+      oldDescription: "",
+      oldPrice: ""
     };
   },
   methods: {
@@ -27,6 +36,32 @@ export default {
         .then(function(response) {
           console.log(response);
           self.products = response.data.data;
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+    },
+    updateProduct() {
+      const self = this;
+      const data = localStorage.getItem("id");
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios
+        .put("http://localhost:3000/product/" + data, {
+          name: self.newName,
+          category: self.newCategory,
+          description: self.newDescription,
+          price: self.newPrice
+        })
+        .then(function(response) {
+          self.editUser = true;
+          Swal.fire(
+            "¡Producto actualizado correctamente!",
+            "Pulsa OK para continuar.",
+            "success"
+          );
+          location.reload();
+          console.log(response);
         })
         .catch(function(error) {
           console.error(error);

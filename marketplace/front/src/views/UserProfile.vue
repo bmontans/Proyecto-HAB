@@ -7,6 +7,7 @@
       v-on:borrar="deleteUsers"
       v-on:editar="showEditText"
     ></userinfo>
+    <button @click="userShowEditPassword()">Update your Password</button>
     <div class="modal" v-show="editUser">
       <div class="modalBox">
         <p class="editUser">Edita los datos del usuario</p>
@@ -22,6 +23,14 @@
         <button @click="updateUsers()">Actualizar</button>
         <button @click="reloadPage()">Cerrar</button>
       </div>
+    </div>
+    <div class="password" v-show="seeEditPassword">
+      <input type="password" v-model="oldPassword" placeholder="Your old password" />
+      <input type="password" v-model="password" placeholder="New password" />
+      <input type="password" v-model="passwordRepeat" placeholder="Repeat your new Paswword" />
+      <br />
+      <button @click="updatePassword()">Update</button>
+      <button @click="seeEditPassword = false">Back to profile</button>
     </div>
   </div>
 </template>
@@ -40,7 +49,11 @@ export default {
       newEmail: "",
       newAddress: "",
       id: null,
-      editUser: false
+      editUser: false,
+      oldPassword: "",
+      password: "",
+      passwordRepeat: "",
+      seeEditPassword: false
     };
   },
   methods: {
@@ -152,6 +165,16 @@ export default {
     },
     reloadPage() {
       location.reload();
+    },
+    userShowEditPassword() {
+      this.seeEditPassword = true;
+      this.password = "";
+      this.passwordRepeat = "";
+    },
+    emptyFiledsPassword() {
+      this.oldPassword = "";
+      this.newPassword = "";
+      this.newPasswordRepeat = "";
     }
   },
   created() {

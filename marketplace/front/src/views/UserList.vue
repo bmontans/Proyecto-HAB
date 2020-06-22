@@ -7,7 +7,6 @@
       v-on:editar="showEditText"
       v-on:password="seeEditPassword"
     ></allusers>
-    <button @click="userShowEditPassword()">Update your Password</button>
     <div class="modal" v-show="editUser">
       <div class="modalBox">
         <p class="editUser">Edita los datos del User</p>
@@ -22,14 +21,6 @@
         <button @click="reloadPage()">Cerrar</button>
       </div>
     </div>
-    <div class="password" v-show="seeEditPassword">
-      <input type="password" v-model="oldPassword" placeholder="Your old password" />
-      <input type="password" v-model="password" placeholder="New password" />
-      <input type="password" v-model="passwordRepeat" placeholder="Repeat your new Paswword" />
-      <br />
-      <button @click="updatePassword()">Update</button>
-      <button @click="seeEditPassword = false">Back to profile</button>
-    </div>
   </div>
 </template>
 
@@ -43,7 +34,6 @@ export default {
   data() {
     return {
       users: [],
-      user: {},
       newUsername: "",
       newEmail: "",
       newAddress: "",
@@ -68,17 +58,32 @@ export default {
           console.error(error);
         });
     },
-    deleteUsers() {
-      const data = localStorage.getItem("id");
+    deleteUsers(data) {
+      const self = this;
       const token = localStorage.getItem("token");
-      axios
-        .delete("http://localhost:3000/user/" + data)
-        .then(function(response) {
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.error(error);
-        });
+      let id = data;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      Swal.fire({
+        title: "You're about to delete an user.",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          axios
+            .delete("http://localhost:3000/user/" + id)
+            .then(function(response) {
+              location.reload();
+            })
+            .catch(function(error) {
+              Swal.fire("Forbidden!", "Only admins can perform this action.");
+            });
+          Swal.fire("Deleted!", "User has been deleted.");
+        }
+      });
     },
     updateUsers() {
       const self = this;
@@ -106,28 +111,6 @@ export default {
           console.error(error);
         });
     },
-    updatePassword() {
-      const self = this;
-      const data = localStorage.getItem("id");
-      const token = localStorage.getItem("token");
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      axios
-        .put("http://localhost:3000/user/password/" + data, {
-          oldPassword: self.oldPassword,
-          newPassword: self.password,
-          newPasswordRepeat: self.passwordRepeat
-        })
-        .then(function(response) {
-          Swal.fire({
-            title: "Your password has been updated"
-          });
-          self.emptyFiledsPassword();
-          self.seeEditPassword = true;
-        })
-        .catch(function(error) {
-          console.error(error);
-        });
-    },
     showEditText(data) {
       this.editUser = true;
       this.newUsername = data.username;
@@ -137,16 +120,6 @@ export default {
     },
     reloadPage() {
       location.reload();
-    },
-    userShowEditPassword() {
-      this.seeEditPassword = true;
-      this.password = "";
-      this.passwordRepeat = "";
-    },
-    emptyFiledsPassword() {
-      this.oldPassword = "";
-      this.newPassword = "";
-      this.newPasswordRepeat = "";
     }
   },
   created() {
