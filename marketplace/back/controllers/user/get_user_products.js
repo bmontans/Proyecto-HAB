@@ -1,7 +1,7 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const { getConnection } = require('../../db');
-const { generateError } = require('../../helpers');
+const { getConnection } = require("../../db");
+const { generateError } = require("../../helpers");
 
 async function getUserProducts(req, res, next) {
   let connection;
@@ -12,22 +12,19 @@ async function getUserProducts(req, res, next) {
     const { id } = req.params;
 
     const [respuesta] = await connection.query(
-      `SELECT  nombre_articulo, descripcion, precio, tipo, subtipo, imagen, disponibilidad FROM articulos WHERE id_usuario=?
-  ORDER BY fecha_inicio`,
+      `SELECT  name, category, description, price, pk_id FROM product WHERE id_user=?
+  ORDER BY creation_date`,
       [id]
     );
 
     if (!respuesta.length) {
-      throw generateError(
-        'No tienes ningun articulo subido, animate con el primero!!',
-        401
-      );
+      throw generateError("This user has no products listed", 401);
     }
-    const articulos = [respuesta];
+    const articulos = respuesta;
 
     res.send({
-      status: 'ok',
-      data: articulos
+      status: "ok",
+      data: articulos,
     });
   } catch (error) {
     next(error);
@@ -36,5 +33,5 @@ async function getUserProducts(req, res, next) {
   }
 }
 module.exports = {
-  getUserProducts
+  getUserProducts,
 };

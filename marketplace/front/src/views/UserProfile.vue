@@ -8,6 +8,14 @@
       v-on:editar="showEditText"
     ></userinfo>
     <button @click="userShowEditPassword()">Update your Password</button>
+    <div class="password" v-show="seeEditPassword">
+      <input type="password" v-model="oldPassword" placeholder="Your old password" />
+      <input type="password" v-model="password" placeholder="New password" />
+      <input type="password" v-model="passwordRepeat" placeholder="Repeat your new Paswword" />
+      <br />
+      <button @click="updatePassword()">Update</button>
+      <button @click="seeEditPassword = false">Back to profile</button>
+    </div>
     <div class="modal" v-show="editUser">
       <div class="modalBox">
         <p class="editUser">Edita los datos del usuario</p>
@@ -24,13 +32,17 @@
         <button @click="reloadPage()">Cerrar</button>
       </div>
     </div>
-    <div class="password" v-show="seeEditPassword">
-      <input type="password" v-model="oldPassword" placeholder="Your old password" />
-      <input type="password" v-model="password" placeholder="New password" />
-      <input type="password" v-model="passwordRepeat" placeholder="Repeat your new Paswword" />
-      <br />
-      <button @click="updatePassword()">Update</button>
-      <button @click="seeEditPassword = false">Back to profile</button>
+    <div class="userProducts">
+      <ul>
+        <li v-for="product in products" :key="product.id">
+          <p>Product name: {{ product.name }}</p>
+          <p>Category: {{ product.category }}</p>
+          <p>Description: {{ product.description }}</p>
+          <p>Price: {{ product.price }}€</p>
+          <button @click="showProduct(product)">Editar</button>
+          <button @click="deleteProduct(product)">Borrar</button>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -45,6 +57,7 @@ export default {
   data() {
     return {
       user: {},
+      products: [],
       newUsername: "",
       newEmail: "",
       newAddress: "",
@@ -156,6 +169,21 @@ export default {
           console.error(error);
         });
     },
+    getUserProducts() {
+      const self = this;
+      const data = localStorage.getItem("id");
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios
+        .get("http://localhost:3000/user/products/" + data)
+        .then(function(response) {
+          console.log(response);
+          self.products = response.data.data;
+        })
+        .catch(function(error) {
+          console.error(error.response.data.message);
+        });
+    },
     showEditText(data) {
       this.editUser = true;
       this.newUsername = data.username;
@@ -179,6 +207,7 @@ export default {
   },
   created() {
     this.getUserData();
+    this.getUserProducts();
   }
 };
 </script>
@@ -196,6 +225,28 @@ export default {
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
+  width: 80%;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+li {
+  margin: 2rem;
+  border-radius: 1rem;
+  border: 2px solid black;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: #eee5e9;
   width: 80%;
 }
 </style>

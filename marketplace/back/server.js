@@ -19,6 +19,7 @@ const { updatePassword } = require("./controllers/user/update_password");
 const { userIsAuthenticated, userIsAdmin } = require("./middlewares/auth");
 const { deleteUser } = require("./controllers/user/delete_user");
 const { deactivateUser } = require("./controllers/user/deactivate_user");
+/* const { passwordRecovery } = require("./controllers/user/password_recovery"); */
 
 const { newProduct } = require("./controllers/product/new_product");
 const { productData } = require("./controllers/product/product_data");
@@ -28,6 +29,7 @@ const { deleteProduct } = require("./controllers/product/delete_product");
 const { getCategory } = require("./controllers/product/get_category");
 // const { buyProduct } = require('./controllers/product/buy_product');
 const { searchProduct } = require("./controllers/product/search_product");
+const { getUserProducts } = require("./controllers/user/get_user_products");
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
@@ -41,9 +43,11 @@ app.get("/user/validate", validateUser); // validar usuario
 app.put("/user/password/:id", userIsAuthenticated, updatePassword); // editar password usuario
 app.get("/users", getAllUsers); //lista usuarios
 app.get("/user/:id", userIsAuthenticated, userIsAdmin, getUser); // obtener info usuario
+app.get("/user/products/:id", getUserProducts); // Listar productos de un usuario (publico)
 app.put("/user/:id", userIsAuthenticated, userIsAdmin, editUser); // editar usuario
 app.delete("/user/:id", userIsAuthenticated, userIsAdmin, deleteUser); //borrar usuario
 app.put("/user/deactivate/:id", userIsAuthenticated, deactivateUser); //desactivar usuario
+/* app.put("/user/recovery", passwordRecovery); */
 
 //RUTAS PRODUCTO
 app.post("/product", userIsAuthenticated, newProduct); //publicar un producto nuevo
