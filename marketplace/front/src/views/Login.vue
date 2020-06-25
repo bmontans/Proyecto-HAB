@@ -2,14 +2,13 @@
   <div>
     <vue-headful title="Login" />
     <div class="login">
-      <h1>Welcome to the digital marketplace</h1>
       <h2>Login with your credentials</h2>
       <input type="text" placeholder="Username..." v-model="username" />
       <input type="password" placeholder="Password..." v-model="password" />
       <button @click="login(username, password)">LOGIN</button>
       <div>
         <br />If you're new and don't have an account, click
-        <router-link to="/add-user">here</router-link>to create a new user.
+        <router-link to="/add-user">here</router-link> to create a new user.
       </div>
     </div>
   </div>
@@ -23,7 +22,7 @@ export default {
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
     };
   },
   methods: {
@@ -32,7 +31,7 @@ export default {
       axios
         .post("http://localhost:3000/user/login", {
           username: self.username,
-          password: self.password
+          password: self.password,
         })
         .then(function(response) {
           localStorage.setItem("token", response.data.data.token);
@@ -44,8 +43,8 @@ export default {
         .catch(function(error) {
           console.error(error);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

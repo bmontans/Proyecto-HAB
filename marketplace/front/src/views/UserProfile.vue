@@ -132,6 +132,8 @@ export default {
         .get("http://localhost:3000/user/" + data)
         .then(function(response) {
           self.user = response.data.data;
+          self.user.profile_picture =
+            "http://localhost:3000/uploads/" + self.user.profile_picture;
           console.log(response);
         })
         .catch(function(error) {

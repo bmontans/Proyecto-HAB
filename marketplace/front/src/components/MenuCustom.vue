@@ -21,7 +21,9 @@
       </li>
       <li>
         <div class="button_cont" @click="logoutUser()">
-          <a class="example_c" target="_blank" rel="nofollow noopener">Logout</a>
+          <a class="example_c" target="_blank" rel="nofollow noopener"
+            >Logout</a
+          >
         </div>
       </li>
       <br />
@@ -37,8 +39,8 @@ export default {
     logoutUser() {
       this.$router.push("/");
       return clearLogin();
-    }
-  }
+    },
+  },
 };
 </script>
 
