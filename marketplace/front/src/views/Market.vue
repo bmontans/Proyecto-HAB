@@ -2,7 +2,7 @@
   <div class="home">
     <vue-headful title="products" />
     <div class="menu"></div>
-    <showproducts :products="products"></showproducts>
+    <showallproducts :products="products"></showallproducts>
   </div>
 </template>
 
@@ -10,10 +10,11 @@
 import axios from "axios";
 import vueHeadful from "vue-headful";
 import showproducts from "@/components/ShowProducts.vue";
+import showallproducts from "@/components/ShowAllProducts.vue";
 
 export default {
   name: "Home",
-  components: { showproducts },
+  components: { showproducts, showallproducts },
   data() {
     return {
       products: [],

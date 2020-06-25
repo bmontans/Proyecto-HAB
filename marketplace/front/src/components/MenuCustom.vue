@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <ul>
+    <ul class="menu">
       <li>
         <router-link to="/login">Login</router-link>
       </li>
@@ -35,7 +35,7 @@ export default {
   name: "MenuCustom",
   methods: {
     logoutUser() {
-      this.$router.push("/login");
+      this.$router.push("/");
       return clearLogin();
     }
   }
@@ -54,7 +54,6 @@ ul {
   justify-content: center;
 }
 li {
-  border-radius: 5%;
   justify-content: center;
   text-transform: uppercase;
   text-decoration: none;

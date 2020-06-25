@@ -9,12 +9,14 @@
     ></userinfo>
     <button @click="userShowEditPassword()">Update your Password</button>
     <div class="password" v-show="seeEditPassword">
-      <input type="password" v-model="oldPassword" placeholder="Your old password" />
-      <input type="password" v-model="password" placeholder="New password" />
-      <input type="password" v-model="passwordRepeat" placeholder="Repeat your new Paswword" />
-      <br />
-      <button @click="updatePassword()">Update</button>
-      <button @click="seeEditPassword = false">Back to profile</button>
+      <div class="passwordBox">
+        <input type="password" v-model="oldPassword" placeholder="Your old password" />
+        <input type="password" v-model="password" placeholder="New password" />
+        <input type="password" v-model="passwordRepeat" placeholder="Repeat your new Paswword" />
+        <br />
+        <button @click="updatePassword()">Update</button>
+        <button @click="seeEditPassword = false">Back to profile</button>
+      </div>
     </div>
     <div class="modal" v-show="editUser">
       <div class="modalBox">
@@ -44,6 +46,25 @@
         </li>
       </ul>
     </div>
+    <div class="editProduct" v-show="seeEditProduct">
+      <div class="editProductBox">
+        <h4>Editar producto</h4>
+
+        <input type="text" v-model="newProductName" placeholder="Product name" />
+        <br />
+        <input type="text" v-model="newProductDescription" placeholder="Price" />
+        <br />
+        <input type="text" v-model="newProductPrice" placeholder="Description" />
+        <br />
+
+        <br />
+        <button @click="editProduct()">Edit your product info</button>
+        <br />
+        <div class="editUserProduct">
+          <button @click="seeEditProduct=false">Return</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,7 +87,11 @@ export default {
       oldPassword: "",
       password: "",
       passwordRepeat: "",
-      seeEditPassword: false
+      seeEditPassword: false,
+      newProductName: "",
+      newProductDescription: "",
+      newProductPrice: "",
+      seeEditProduct: false
     };
   },
   methods: {
@@ -86,40 +111,31 @@ export default {
         });
     },
     deleteUsers(data) {
-      let id = data;
-      axios
-        .delete("http://localhost:3000/users/del/" + id)
-        .then(function(response) {
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.error(error);
-        });
-    },
-    updateUsers() {
       const self = this;
-      const data = localStorage.getItem("id");
       const token = localStorage.getItem("token");
+      let id = data;
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      axios
-        .put("http://localhost:3000/user/" + data, {
-          username: self.newUsername,
-          email: self.newEmail,
-          address: self.newAddress
-        })
-        .then(function(response) {
-          self.editUser = true;
-          Swal.fire(
-            "¡Usere actualizado correctamente!",
-            "Pulsa OK para continuar.",
-            "success"
-          );
-          location.reload();
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.error(error);
-        });
+      Swal.fire({
+        title: "You're about to delete an user.",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          axios
+            .delete("http://localhost:3000/user/" + id)
+            .then(function(response) {
+              location.reload();
+            })
+            .catch(function(error) {
+              Swal.fire("Forbidden!", "Only admins can perform this action.");
+            });
+          Swal.fire("Deleted!", "User has been deleted.");
+        }
+      });
     },
     updateUsers() {
       const self = this;
@@ -203,6 +219,81 @@ export default {
       this.oldPassword = "";
       this.newPassword = "";
       this.newPasswordRepeat = "";
+    },
+    editProduct() {
+      const self = this;
+      const id = self.id;
+      const idUser = localStorage.getItem("id");
+      const token = localStorage.getItem("token");
+      let formData = new FormData();
+      formData.append("name", self.newProductName);
+      formData.append("description", self.newProductDescription);
+      formData.append("price", self.newProductPrice);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios
+        .put("http://localhost:3000/product/" + id, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(function(response) {
+          self.seeEditProduct = false;
+          Swal.fire({
+            icon: "success",
+            title: "Your product has been successfully updated",
+            timer: "3000"
+          });
+          location.reload();
+        })
+        .catch(function(error) {
+          console.error(error.response.data.message);
+        });
+    },
+    showProduct(product) {
+      this.id = product.pk_id;
+      this.newProductName = product.name;
+      this.newProductDescription = product.description;
+      this.newProductPrice = product.price;
+      this.seeEditProduct = true;
+    },
+    deleteProduct(product) {
+      const self = this;
+      const id = product.pk_id;
+      const idUser = localStorage.getItem("id");
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      Swal.fire({
+        title: "You're going to delete your product.",
+        text:
+          "If you delist your product you'll have to manually list it again",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it."
+      }).then(result => {
+        if (result.value) {
+          axios
+            .delete("http://localhost:3000/product/" + id)
+            .then(function(response) {
+              location.reload();
+            })
+            .catch(function(error) {
+              console.error(error.response.data.message);
+            });
+          Swal.fire({
+            title: "Product successfully deleted",
+            icon: "success",
+            confirmButtonText: "OK",
+            timer: "5000"
+          });
+        } else {
+          Swal.fire({
+            title: "You cancelled the process.",
+            icon: "warning",
+            confirmButtonText: "OK",
+            timer: "5000"
+          });
+        }
+      });
     }
   },
   created() {
@@ -221,6 +312,40 @@ export default {
   width: 100%;
 }
 .modalBox {
+  background: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.editProduct {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
+.editProductBox {
+  background: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.password {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
+.passwordBox {
   background: #fefefe;
   margin: 15% auto;
   padding: 20px;

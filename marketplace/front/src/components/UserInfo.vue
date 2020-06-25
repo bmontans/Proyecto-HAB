@@ -11,7 +11,7 @@
             <p>Location: {{ user.address }}</p>
             <p>Birthdate: {{ user.birthdate }}</p>
             <p>Creation Date: {{ user.creation_date }}</p>
-            <button @click="deleteUserEvent(index)">Borrar</button>
+            <button @click="deleteUserEvent()">Borrar</button>
             <button @click="updateUserEvent()">Editar</button>
           </div>
         </li>
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     deleteUserEvent(index) {
-      let data = this.user[index].id;
+      let data = this.user.id;
       this.$emit("borrar", data);
     },
     updateUserEvent() {

@@ -21,7 +21,7 @@ body,
 html {
   margin: 0 auto;
   height: 100vh;
-  background: #f4bfdb;
+  background: #a39594;
   font-family: "Noto Sans", sans-serif;
 }
 #app {
@@ -41,5 +41,16 @@ a {
 }
 a.router-link-exact-active {
   color: #ffff70;
+  border-bottom: 3px solid #ffff70;
+}
+
+#nav a {
+  text-align: center;
+  padding: 1rem 0;
+  text-decoration: none;
+}
+
+#nav a:hover {
+  border-bottom: 3px solid #ffff70;
 }
 </style>

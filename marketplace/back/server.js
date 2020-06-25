@@ -53,7 +53,7 @@ app.put("/user/deactivate/:id", userIsAuthenticated, deactivateUser); //desactiv
 app.post("/product", userIsAuthenticated, newProduct); //publicar un producto nuevo
 app.get("/product/:id", userIsAuthenticated, userIsAdmin, productData); // obtener info profucto
 app.put("/product/:id", userIsAuthenticated, userIsAdmin, editProduct); // editar info producto
-app.delete("/product/:id", userIsAuthenticated, userIsAdmin, deleteProduct); //borrar producto
+app.delete("/product/:id", userIsAuthenticated, deleteProduct); //borrar producto
 app.get("/products", getAllProducts); // obtener todos los productos listados
 app.get("/products/:category", userIsAuthenticated, userIsAdmin, getCategory); //obtener todos los productos de x categoria
 // app.post('/products/purchase/:id', userIsAuthenticated, buyProduct); // comprar producto
