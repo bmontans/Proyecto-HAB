@@ -20,7 +20,6 @@ export default {
 body,
 html {
   margin: 0 auto;
-  height: 100vh;
   background: #a39594;
   font-family: "Noto Sans", sans-serif;
 }
@@ -30,6 +29,10 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #080b0c;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
 }
 #nav {
   padding: 30px;

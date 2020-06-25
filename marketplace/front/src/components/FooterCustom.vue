@@ -6,8 +6,15 @@
 
 <script>
 export default {
-  name: "FooterCustom"
+  name: "FooterCustom",
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+h4 {
+  background: black;
+  padding: 1rem;
+  color: #87baab;
+  margin: 0 auto;
+}
+</style>
