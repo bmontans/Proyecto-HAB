@@ -27,7 +27,7 @@ const { getAllProducts } = require("./controllers/product/get_all_products");
 const { editProduct } = require("./controllers/product/edit_product");
 const { deleteProduct } = require("./controllers/product/delete_product");
 const { getCategory } = require("./controllers/product/get_category");
-// const { buyProduct } = require('./controllers/product/buy_product');
+const { buyProduct } = require("./controllers/product/buy_product");
 const { searchProduct } = require("./controllers/product/search_product");
 const { getUserProducts } = require("./controllers/user/get_user_products");
 
@@ -56,7 +56,7 @@ app.put("/product/:id", userIsAuthenticated, userIsAdmin, editProduct); // edita
 app.delete("/product/:id", userIsAuthenticated, deleteProduct); //borrar producto
 app.get("/products", getAllProducts); // obtener todos los productos listados
 app.get("/products/:category", userIsAuthenticated, userIsAdmin, getCategory); //obtener todos los productos de x categoria
-// app.post('/products/purchase/:id', userIsAuthenticated, buyProduct); // comprar producto
+app.post("/products/purchase/:id", userIsAuthenticated, buyProduct); // comprar producto
 app.get("/products/search", searchProduct); //busqueda por nombre or categoria
 
 // Error middleware

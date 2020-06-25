@@ -152,8 +152,8 @@ export default {
         .then(function(response) {
           self.editUser = true;
           Swal.fire(
-            "¡Usere actualizado correctamente!",
-            "Pulsa OK para continuar.",
+            "¡User successfully updated",
+            "Press okay to continue.",
             "success"
           );
           location.reload();
