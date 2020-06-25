@@ -9,7 +9,7 @@
             <p>{{ product.category}}</p>
             <p>{{ product.description }}</p>
             <p>{{ product.price }}€</p>
-            <button @click="buyProductEvent(index)">Comprar</button>
+            <button @click="buyProductEvent(index)">Contact seller</button>
           </div>
         </li>
       </ul>
@@ -27,6 +27,12 @@ export default {
     buyProductEvent(index) {
       let data = this.products[index].id;
       this.$emit("comprar", data);
+    },
+    contactUserEvent() {
+      this.$emit("showcontact");
+    },
+    contactUserEmailEvent(message, presentation) {
+      this.$emit("contact", this.message, presentation);
     }
   }
 };

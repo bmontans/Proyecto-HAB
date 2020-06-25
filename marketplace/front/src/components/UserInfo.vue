@@ -9,8 +9,8 @@
             <p>Username: {{ user.username }}</p>
             <p>Email: {{ user.email }}</p>
             <p>Location: {{ user.address }}</p>
-            <p>Birthdate: {{ user.birthdate }}</p>
-            <p>Creation Date: {{ user.creation_date }}</p>
+            <p>Birthdate: {{ user.birthdate | moment("D-MM-YYYY") }}</p>
+            <p>Creation Date: {{ user.creation_date | moment("D-MM-YYYY") }}</p>
             <button @click="deleteUserEvent()">Borrar</button>
             <button @click="updateUserEvent()">Editar</button>
           </div>
@@ -24,7 +24,7 @@
 export default {
   name: "UserInfo",
   props: {
-    user: Object
+    user: Object,
   },
   methods: {
     deleteUserEvent(index) {
@@ -34,8 +34,8 @@ export default {
     updateUserEvent() {
       let data = this.user;
       this.$emit("editar", data);
-    }
-  }
+    },
+  },
 };
 </script>
 

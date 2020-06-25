@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import vueHeadful from "vue-headful";
+Vue.use(require("vue-moment"));
 
 Vue.config.productionTip = false;
 Vue.component("vue-headful", vueHeadful);

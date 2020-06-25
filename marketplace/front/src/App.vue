@@ -12,7 +12,7 @@ import footercustom from "@/components/FooterCustom.vue";
 
 export default {
   name: "App",
-  components: { menucustom, footercustom }
+  components: { menucustom, footercustom },
 };
 </script>
 
