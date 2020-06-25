@@ -1,7 +1,11 @@
 require("dotenv").config();
 
 const { getConnection } = require("../../db");
-const { generateError } = require("../../helpers");
+const {
+  generateError,
+  processAndSavePhoto,
+  deletePhoto,
+} = require("../../helpers");
 const { updateUserSchema } = require("../../validations/edit_user");
 
 async function editUser(req, res, next) {
@@ -19,13 +23,28 @@ async function editUser(req, res, next) {
       throw generateError(`The user with id ${id} does not exist`, 404);
     }
 
-    /*if (!current.length) {
-            throw generateError(`The user with id ${id} does not exist`, 404);
-        }*/
-    await connection.query(` UPDATE user SET email=? WHERE pk_id=?`, [
-      email,
-      id,
-    ]);
+    let savedFileName;
+
+    if (req.files && req.files.profile_picture) {
+      try {
+        savedFileName = await processAndSavePhoto(req.files.profile_picture);
+        if (current && current[0].profile_picture) {
+          await deletePhoto(current[0].profile_picture);
+        }
+      } catch (error) {
+        throw generateError(
+          "No se puede procesar la imagen. Intentelo de nuevo más tarde.",
+          400
+        );
+      }
+    } else {
+      savedFileName = current.profile_picture;
+    }
+
+    await connection.query(
+      ` UPDATE user SET email=?, profile_picture=? WHERE pk_id=?`,
+      [email, savedFileName, id]
+    );
     res.send({ status: "ok", message: "Usuario actualizado" });
   } catch (error) {
     next(error);

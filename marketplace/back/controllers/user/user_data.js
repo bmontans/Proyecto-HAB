@@ -23,7 +23,7 @@ async function getUser(req, res, next) {
     const payload = {
       creation_date: userData.creation_date,
       address: userData.address,
-      avatar: userData.profile_picture,
+      profile_picture: userData.profile_picture,
       username: userData.name,
       email: userData.email,
       birthdate: userData.birthdate,

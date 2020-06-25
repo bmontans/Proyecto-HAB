@@ -8,19 +8,9 @@
       v-on:editar="showEditText"
     ></userinfo>
     <button @click="userShowEditPassword()">Update your Password</button>
-    <div class="password" v-show="seeEditPassword">
-      <div class="passwordBox">
-        <input type="password" v-model="oldPassword" placeholder="Your old password" />
-        <input type="password" v-model="password" placeholder="New password" />
-        <input type="password" v-model="passwordRepeat" placeholder="Repeat your new Paswword" />
-        <br />
-        <button @click="updatePassword()">Update</button>
-        <button @click="seeEditPassword = false">Back to profile</button>
-      </div>
-    </div>
     <div class="modal" v-show="editUser">
       <div class="modalBox">
-        <p class="editUser">Edita los datos del usuario</p>
+        <p class="editUser">EDIT USER PROFILE</p>
         <p>Username:</p>
         <input type="text" v-model="newUsername" placeholder="Username" />
         <br />
@@ -31,7 +21,33 @@
         <input type="text" v-model="newAddress" placeholder="Address" />
         <br />
         <button @click="updateUsers()">Actualizar</button>
-        <button @click="reloadPage()">Cerrar</button>
+        <button @click="editUser = false">Cerrar</button>
+      </div>
+    </div>
+
+    <!-- EDICION DE CONTRASEÑA -->
+    <div class="password" v-show="seeEditPassword">
+      <div class="passwordBox">
+        <p class="editPassword">EDIT YOUR PASSWORD</p>
+        <p>OLD PASSWORD</p>
+        <input
+          type="password"
+          v-model="oldPassword"
+          placeholder="Your old password"
+        />
+        <br />
+        <p>NEW PASSWORD</p>
+        <input type="password" v-model="password" placeholder="New password" />
+        <br />
+        <p>REPEAT PASSWORD</p>
+        <input
+          type="password"
+          v-model="passwordRepeat"
+          placeholder="Repeat your new Paswword"
+        />
+        <br />
+        <button @click="updatePassword()">Update</button>
+        <button @click="seeEditPassword = false">Back to profile</button>
       </div>
     </div>
     <div class="userProducts">
@@ -50,18 +66,30 @@
       <div class="editProductBox">
         <h4>Editar producto</h4>
 
-        <input type="text" v-model="newProductName" placeholder="Product name" />
+        <input
+          type="text"
+          v-model="newProductName"
+          placeholder="Product name"
+        />
         <br />
-        <input type="text" v-model="newProductDescription" placeholder="Price" />
+        <input
+          type="text"
+          v-model="newProductDescription"
+          placeholder="Price"
+        />
         <br />
-        <input type="text" v-model="newProductPrice" placeholder="Description" />
+        <input
+          type="text"
+          v-model="newProductPrice"
+          placeholder="Description"
+        />
         <br />
 
         <br />
         <button @click="editProduct()">Edit your product info</button>
         <br />
         <div class="editUserProduct">
-          <button @click="seeEditProduct=false">Return</button>
+          <button @click="seeEditProduct = false">Return</button>
         </div>
       </div>
     </div>
@@ -91,7 +119,7 @@ export default {
       newProductName: "",
       newProductDescription: "",
       newProductPrice: "",
-      seeEditProduct: false
+      seeEditProduct: false,
     };
   },
   methods: {
@@ -122,8 +150,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then(result => {
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
         if (result.value) {
           axios
             .delete("http://localhost:3000/user/" + id)
@@ -147,7 +175,7 @@ export default {
           username: self.newUsername,
           email: self.newEmail,
           address: self.newAddress,
-          id: self.id
+          id: self.id,
         })
         .then(function(response) {
           self.editUser = true;
@@ -172,11 +200,11 @@ export default {
         .put("http://localhost:3000/user/password/" + data, {
           oldPassword: self.oldPassword,
           newPassword: self.password,
-          newPasswordRepeat: self.passwordRepeat
+          newPasswordRepeat: self.passwordRepeat,
         })
         .then(function(response) {
           Swal.fire({
-            title: "Your password has been updated"
+            title: "Your password has been updated",
           });
           self.emptyFiledsPassword();
           self.seeEditPassword = true;
@@ -233,15 +261,15 @@ export default {
       axios
         .put("http://localhost:3000/product/" + id, formData, {
           headers: {
-            "Content-Type": "multipart/form-data"
-          }
+            "Content-Type": "multipart/form-data",
+          },
         })
         .then(function(response) {
           self.seeEditProduct = false;
           Swal.fire({
             icon: "success",
             title: "Your product has been successfully updated",
-            timer: "3000"
+            timer: "3000",
           });
           location.reload();
         })
@@ -268,8 +296,8 @@ export default {
           "If you delist your product you'll have to manually list it again",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "Yes, delete it."
-      }).then(result => {
+        confirmButtonText: "Yes, delete it.",
+      }).then((result) => {
         if (result.value) {
           axios
             .delete("http://localhost:3000/product/" + id)
@@ -283,23 +311,23 @@ export default {
             title: "Product successfully deleted",
             icon: "success",
             confirmButtonText: "OK",
-            timer: "5000"
+            timer: "5000",
           });
         } else {
           Swal.fire({
             title: "You cancelled the process.",
             icon: "warning",
             confirmButtonText: "OK",
-            timer: "5000"
+            timer: "5000",
           });
         }
       });
-    }
+    },
   },
   created() {
     this.getUserData();
     this.getUserProducts();
-  }
+  },
 };
 </script>
 <style scoped>

@@ -5,6 +5,7 @@
       <ul>
         <li>
           <div class="User">
+            <img :src="user.profile_picture" alt="user picture" />
             <p>{{ user.pk_id }}</p>
             <p>Username: {{ user.username }}</p>
             <p>Email: {{ user.email }}</p>

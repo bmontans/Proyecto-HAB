@@ -1,6 +1,6 @@
-require('dotenv').config();
-const { getConnection } = require('../../db');
-const { generateError } = require('../../helpers');
+require("dotenv").config();
+const { getConnection } = require("../../db");
+const { generateError } = require("../../helpers");
 
 async function getAllUsers(req, res, next) {
   let connection;
@@ -14,19 +14,20 @@ async function getAllUsers(req, res, next) {
         address, 
         email, 
         birthdate,
-        creation_date FROM user
+        creation_date,
+        profile_picture FROM user
         ORDER BY creation_date`
     );
 
     const [usersData] = result;
 
     if (!usersData.length) {
-      throw generateError('There are no users in the database.', 401);
+      throw generateError("There are no users in the database.", 401);
     }
 
     res.send({
-      staus: 'ok',
-      data: usersData
+      staus: "ok",
+      data: usersData,
     });
   } catch (error) {
     next(error);

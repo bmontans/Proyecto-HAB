@@ -5,6 +5,7 @@
       <ul>
         <li v-for="(user, index) in users" :key="user.id">
           <div class="Users">
+            <img :src="user.profile_picture" alt="profile pic" />
             <p>{{ user.pk_id }}</p>
             <p>{{ user.username }}</p>
             <p>{{ user.email }}</p>
@@ -22,7 +23,7 @@
 export default {
   name: "AllUsers",
   props: {
-    users: Array
+    users: Array,
   },
   methods: {
     deleteUserEvent(index) {
@@ -36,8 +37,8 @@ export default {
     updatePasswordEvent(index) {
       let data = this.users[index];
       this.$emit("password", data);
-    }
-  }
+    },
+  },
 };
 </script>
 
