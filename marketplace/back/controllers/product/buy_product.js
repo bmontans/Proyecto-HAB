@@ -1,44 +1,40 @@
 require("dotenv").config();
 const { getConnection } = require("../../db");
+const { buyProductSchema } = require("../../validations/buy_product");
 const {
   generateError,
   formatDateToDB,
   purchaseConfirmation,
 } = require("../../helpers");
-const { differenceInDays } = require("date-fns");
 
 async function buyProduct(req, res, next) {
   let connection;
 
   try {
+    const id_usuario = req.auth.id;
+    const id_articulo = req.params.id;
     connection = await getConnection();
+    await buyProductSchema.validateAsync(req.body);
 
-    const user_id = req.auth.id;
-    const product_id = req.params.id;
-
-    const [
-      current,
-    ] = await connection.query(
-      "SELECT name, category, description, price, pk_id FROM product where pk_id=?",
-      [product_id]
-    );
+    const { description, rating } = req.body;
 
     await connection.query(
-      `INSERT INTO transactions (id_product, id_user) 
-      VALUES  (?,?)`,
+      `INSERT INTO transactions (id_user, id_product, description, rating, creation_date, modification_date) 
+      VALUES  (?,?,?,?,NOW(),NOW())`,
 
-      [user_id, product_id]
+      [id_articulo, id_usuario, description, rating]
     );
 
     res.send({
       status: "ok",
-      message:
-        "Tu compra se ha realizado correctamente. En unos momentos recibiras un mail de confirmación de la misma. Gracias por confiar en nosotros:)",
+      message: "Product successfully purchased",
     });
 
     const [
       userData,
-    ] = await connection.query(`SELECT email FROM user WHERE id=?`, [user_id]);
+    ] = await connection.query(`SELECT email FROM user WHERE pk_id=?`, [
+      user_id,
+    ]);
 
     try {
       await purchaseConfirmation({

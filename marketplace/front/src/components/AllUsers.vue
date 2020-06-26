@@ -23,11 +23,12 @@
 export default {
   name: "AllUsers",
   props: {
-    users: Array,
+    users: Array
   },
   methods: {
     deleteUserEvent(index) {
-      let data = this.users[index].id;
+      console.log(this.users);
+      let data = this.users[index].pk_id;
       this.$emit("borrar", data);
     },
     updateUserEvent(index) {
@@ -37,8 +38,8 @@ export default {
     updatePasswordEvent(index) {
       let data = this.users[index];
       this.$emit("password", data);
-    },
-  },
+    }
+  }
 };
 </script>
 
