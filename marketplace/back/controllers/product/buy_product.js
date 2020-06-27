@@ -11,23 +11,31 @@ async function buyProduct(req, res, next) {
   let connection;
 
   try {
-    const id_usuario = req.auth.id;
-    const id_articulo = req.params.id;
     connection = await getConnection();
     await buyProductSchema.validateAsync(req.body);
 
+    const user_id = req.auth.id;
+    const product_id = req.params.id;
+
     const { description, rating } = req.body;
 
+    const [
+      current,
+    ] = await connection.query(
+      "SELECT  name, price, pk_id FROM product where pk_id=?",
+      [product_id]
+    );
+
     await connection.query(
-      `INSERT INTO transactions (id_user, id_product, description, rating, creation_date, modification_date) 
+      `INSERT INTO transactions (id_product, id_user, description, rating, creation_date, modification_date) 
       VALUES  (?,?,?,?,NOW(),NOW())`,
 
-      [id_articulo, id_usuario, description, rating]
+      [product_id, user_id, description, rating]
     );
 
     res.send({
       status: "ok",
-      message: "Product successfully purchased",
+      message: "Purchase completed",
     });
 
     const [
@@ -38,13 +46,13 @@ async function buyProduct(req, res, next) {
 
     try {
       await purchaseConfirmation({
-        email: userData[0].mail,
-        title: "Product purchased",
-        content: `Thanks for purchasing ${current[0].name}`,
+        email: userData[0].email,
+        title: "Purchase receipt",
+        content: `You've purchased ${current[0].name}`,
       });
     } catch (error) {
       console.error(error);
-      throw new Error("There was an error sending the email");
+      throw new Error("There was an error with your email");
     }
   } catch (error) {
     next(error);

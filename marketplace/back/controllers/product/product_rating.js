@@ -1,59 +1,59 @@
 require("dotenv").config();
 const { getConnection } = require("../../db");
-const { newRatingSchema } = require("../../validations/rating_product");
+const { newRatingSchema } = require("../../validations/product_rating");
 const { generateError } = require("../../helpers");
 
-async function ratingProduct(req, res, next) {
+async function rateProduct(req, res, next) {
   let connection;
 
   try {
     connection = await getConnection();
     await newRatingSchema.validateAsync(req.body);
 
-    const id_pedido = req.params.id;
+    const transaction_id = req.params.id;
 
-    const { rating, comment } = req.body;
+    const { comment, rating } = req.body;
 
     const [
       current,
     ] = await connection.query(
-      `SELECT id_user, id_product FROM transactions WHERE id=?`,
-      [id_pedido]
+      `SELECT id_user, id_product FROM transactions WHERE pk_id=?`,
+      [transaction_id]
     );
 
     if (!current.length) {
-      throw generateError("El pedido no existe", 401);
+      throw generateError("This transaction doesn't exist", 401);
     }
 
-    const [pedidoData] = current;
+    const [transactionData] = current;
 
-    if (req.auth.id !== pedidoData.id_user) {
-      throw generateError("No tienes permiso para valorar este pedido :(", 401);
+    if (req.auth.id !== transactionData.id_user) {
+      throw generateError("You need to log in to rate this product", 401);
     }
 
     const [
       existingValoration,
-    ] = await connection.query(`SELECT pk_id FROM ratings WHERE id_pedido=?`, [
-      id_pedido,
+    ] = await connection.query(`SELECT pk_id FROM ratings WHERE id_product=?`, [
+      transaction_id,
     ]);
 
     if (existingValoration.length) {
-      throw generateError(" Este pedido ya ha sido valorado", 401);
+      throw generateError("This product was already rated", 401);
     }
 
     await connection.query(
       `INSERT INTO ratings (id_product, 
-                            id_pedido, 
-                            rating, 
+                            id_transaction, 
                             comment, 
-                            fecha)
-      VALUES(?,?,?,?,NOW())`,
-      [pedidoData.id_articulo, id_pedido, rating, comment]
+                            rating, 
+                            creation_date, modification_date)
+      VALUES(?,?,?,?,NOW(),NOW())`,
+      [transactionData.id_product, transaction_id, comment, rating]
     );
 
     res.send({
       status: "ok",
-      message: "Rating successfully posted.",
+      message: "Rating successfully added",
     });
   } catch (error) {
     next(error);
@@ -63,4 +63,4 @@ async function ratingProduct(req, res, next) {
     }
   }
 }
-module.exports = { ratingProduct };
+module.exports = { rateProduct };
