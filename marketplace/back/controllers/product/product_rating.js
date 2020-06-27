@@ -32,12 +32,13 @@ async function rateProduct(req, res, next) {
     }
 
     const [
-      existingValoration,
-    ] = await connection.query(`SELECT pk_id FROM ratings WHERE id_product=?`, [
-      transaction_id,
-    ]);
+      existingRating,
+    ] = await connection.query(
+      `SELECT pk_id FROM ratings WHERE id_transaction=?`,
+      [transaction_id]
+    );
 
-    if (existingValoration.length) {
+    if (existingRating.length) {
       throw generateError("This product was already rated", 401);
     }
 

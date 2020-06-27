@@ -17,7 +17,7 @@ async function buyProduct(req, res, next) {
     const user_id = req.auth.id;
     const product_id = req.params.id;
 
-    const { description, rating } = req.body;
+    const { description } = req.body;
 
     const [
       current,
@@ -27,10 +27,10 @@ async function buyProduct(req, res, next) {
     );
 
     await connection.query(
-      `INSERT INTO transactions (id_product, id_user, description, rating, creation_date, modification_date) 
-      VALUES  (?,?,?,?,NOW(),NOW())`,
+      `INSERT INTO transactions (id_product, id_user, description, creation_date, modification_date) 
+      VALUES  (?,?,?,NOW(),NOW())`,
 
-      [product_id, user_id, description, rating]
+      [product_id, user_id, description]
     );
 
     res.send({
