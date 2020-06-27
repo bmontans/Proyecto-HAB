@@ -2,14 +2,15 @@
   <div>
     <div>
       <ul>
-        <li v-for="product in products" :key="product.id">
+        <li v-for="(product, index) in products" :key="product.id">
           <div class="products">
             <p>{{ product.pk_id }}</p>
             <p>{{ product.name }}</p>
             <p>{{ product.category }}</p>
             <p>{{ product.description }}</p>
             <p>{{ product.price }}€</p>
-            <button @click="buyProductEvent(product)">Contact seller</button>
+            <button @click="openModalEvent(index)">BUY</button>
+            <button @click="buyProductEvent()">BUY</button>
           </div>
         </li>
       </ul>
@@ -25,16 +26,15 @@ export default {
     product: Object,
   },
   methods: {
-    contactUserEvent() {
-      this.$emit("showcontact");
+    buyProductEvent(index) {
+      console.log(this.products);
+      let data = this.products.pk_id;
+      this.$emit("comprar", data);
     },
-    contactUserEmailEvent(message, presentation) {
-      this.$emit("contact", this.message, presentation);
+    openModalEvent(index) {
+      let data = this.products[index];
+      this.$emit("openModal", data);
     },
-  },
-  buyProductEvent(product) {
-    let data = product.id;
-    this.$emit("comprar", data);
   },
 };
 </script>

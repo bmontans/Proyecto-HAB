@@ -6,6 +6,7 @@ const {
   formatDateToDB,
   purchaseConfirmation,
 } = require("../../helpers");
+const { address } = require("faker");
 
 async function buyProduct(req, res, next) {
   let connection;
@@ -17,7 +18,7 @@ async function buyProduct(req, res, next) {
     const user_id = req.auth.id;
     const product_id = req.params.id;
 
-    const { description } = req.body;
+    const { address, price } = req.body;
 
     const [
       current,
@@ -27,10 +28,10 @@ async function buyProduct(req, res, next) {
     );
 
     await connection.query(
-      `INSERT INTO transactions (id_product, id_user, description, creation_date, modification_date) 
-      VALUES  (?,?,?,NOW(),NOW())`,
+      `INSERT INTO transactions (id_product, id_user, price, address, purchase_date, modification_date) 
+      VALUES  (?,?,?,?,NOW(),NOW())`,
 
-      [product_id, user_id, description]
+      [product_id, user_id, price, address]
     );
 
     res.send({
