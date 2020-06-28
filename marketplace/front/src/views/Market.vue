@@ -44,7 +44,7 @@ export default {
       newPrice: "",
       newAddress: "",
       correctData: false,
-      openPurchaseBox: false,
+      openPurchaseBox: false
     };
   },
   methods: {
@@ -76,7 +76,7 @@ export default {
               title: "Product successfully purchased.",
               text:
                 "You'll soon receive a confirmation email. Check your inbox!",
-              timer: "5000",
+              timer: "5000"
             });
           })
           .catch(function(error) {
@@ -87,7 +87,7 @@ export default {
           icon: "error",
           title: "Oops...",
           text: "Information is missing",
-          timer: 3000,
+          timer: 3000
         });
       }
     },
@@ -103,11 +103,11 @@ export default {
       this.openPurchaseBox = true;
       this.newAddress = data.address;
       this.id = data.id;
-    },
+    }
   },
   created() {
     this.getProducts();
-  },
+  }
 };
 </script>
 

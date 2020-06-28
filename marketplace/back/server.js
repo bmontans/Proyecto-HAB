@@ -20,6 +20,9 @@ const { updatePassword } = require("./controllers/user/update_password");
 const { userIsAuthenticated, userIsAdmin } = require("./middlewares/auth");
 const { deleteUser } = require("./controllers/user/delete_user");
 const { deactivateUser } = require("./controllers/user/deactivate_user");
+const {
+  getAcquiredProducts,
+} = require("./controllers/user/get_purchased_products");
 /* const { passwordRecovery } = require("./controllers/user/password_recovery"); */
 
 const { newProduct } = require("./controllers/product/new_product");
@@ -30,6 +33,9 @@ const { deleteProduct } = require("./controllers/product/delete_product");
 const { getCategory } = require("./controllers/product/get_category");
 const { buyProduct } = require("./controllers/product/buy_product");
 const { rateProduct } = require("./controllers/product/product_rating");
+const {
+  getRatingProducts,
+} = require("./controllers/product/get_product_rating");
 
 const { searchProduct } = require("./controllers/product/search_product");
 const { getUserProducts } = require("./controllers/user/get_user_products");
@@ -51,6 +57,11 @@ app.get("/user/products/:id", getUserProducts); // Listar productos de un usuari
 app.put("/user/:id", userIsAuthenticated, userIsAdmin, editUser); // editar usuario
 app.delete("/user/:id", userIsAuthenticated, userIsAdmin, deleteUser); //borrar usuario
 app.put("/user/deactivate/:id", userIsAuthenticated, deactivateUser); //desactivar usuario
+app.get(
+  "/user/products/acquired/:id",
+  userIsAuthenticated,
+  getAcquiredProducts
+); // Listar productos adquiridos
 /* app.put("/user/recovery", passwordRecovery); */
 
 //RUTAS PRODUCTO
@@ -63,6 +74,7 @@ app.get("/products/:category", userIsAuthenticated, userIsAdmin, getCategory); /
 app.post("/products/purchase/:id", userIsAuthenticated, buyProduct); // comprar producto
 app.post("/products/rating/:id", userIsAuthenticated, rateProduct); // valorar producto
 app.get("/products/search", searchProduct); //busqueda por nombre or categoria
+app.get("/products/rating/:id", getRatingProducts); // obtener rating producto
 
 // Error middleware
 app.use((error, req, res, next) => {
