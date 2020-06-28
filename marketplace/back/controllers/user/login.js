@@ -17,7 +17,7 @@ async function loginUser(req, res, next) {
     const [
       dbUser,
     ] = await connection.query(
-      "SELECT pk_id, email, password, username, role from user where username=? AND active=true",
+      "SELECT pk_id, email, password, address, username, role from user where username=? AND active=true",
       [username]
     );
 
@@ -47,6 +47,7 @@ async function loginUser(req, res, next) {
       status: "ok",
       message: "Login correcto",
       id: user.pk_id,
+      address: user.address,
       username: user.username,
       role: user.role,
       mail: user.mail,

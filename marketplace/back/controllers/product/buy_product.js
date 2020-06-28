@@ -19,7 +19,7 @@ async function buyProduct(req, res, next) {
     const product_id = req.params.id;
 
     const { address, price } = req.body;
-
+    console.log(price);
     const [
       current,
     ] = await connection.query(
