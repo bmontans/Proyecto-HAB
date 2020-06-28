@@ -8,7 +8,7 @@
       <button @click="login(username, password)">LOGIN</button>
       <div>
         <br />If you're new and don't have an account, click
-        <router-link to="/add-user">here</router-link> to create a new user.
+        <router-link to="/add-user">here</router-link>to create a new user.
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       username: "",
-      password: "",
+      password: ""
     };
   },
   methods: {
@@ -31,11 +31,13 @@ export default {
       axios
         .post("http://localhost:3000/user/login", {
           username: self.username,
-          password: self.password,
+          password: self.password
         })
         .then(function(response) {
+          console.log(response.data);
           localStorage.setItem("token", response.data.data.token);
           localStorage.setItem("role", response.data.role);
+          localStorage.setItem("address", response.data.address);
           localStorage.setItem("username", response.data.username);
           localStorage.setItem("id", response.data.id);
           self.$router.push("/");
@@ -43,8 +45,8 @@ export default {
         .catch(function(error) {
           console.error(error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

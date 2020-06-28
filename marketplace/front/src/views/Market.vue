@@ -10,11 +10,10 @@
     ></showallproducts>
     <div class="modal" v-show="openPurchaseBox">
       <div class="modalBox">
+        <input type="text" v-model="newName" placeholder="Address" />
         <input type="text" v-model="newAddress" placeholder="Address" />
-        <br />
-        <p>Añade tu dirección</p>
-        <br />
-        <button @click="buyProduct(product)">BUY</button>
+        <button @click="buyProduct()">BUY</button>
+        <button @click="openPurchaseBox = false">Cerrar</button>
       </div>
     </div>
   </div>
@@ -44,7 +43,9 @@ export default {
       newPrice: "",
       newAddress: "",
       correctData: false,
-      openPurchaseBox: false
+      openPurchaseBox: false,
+      pk_id: "",
+      index: ""
     };
   },
   methods: {
@@ -60,15 +61,19 @@ export default {
           console.error(error);
         });
     },
-    buyProduct(data) {
+    buyProduct() {
       this.validatePurchase();
       const self = this;
+      const data = self.pk_id;
       const token = localStorage.getItem("token");
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       console.log(self.correctData);
       if (self.correctData === true) {
         axios
-          .post("http://localhost:3000/products/purchase/" + data, {})
+          .post("http://localhost:3000/products/purchase/" + data, {
+            address: self.newAddress,
+            price: self.products[self.index].price
+          })
           .then(function(response) {
             console.log(response);
             Swal.fire({
@@ -92,17 +97,19 @@ export default {
       }
     },
     validatePurchase() {
-      if (this.address === "" || this.price === "") {
+      if (this.newAddress === "" || this.newName === "") {
         this.correctData = false;
       } else {
         this.correctData = true;
       }
     },
-    showPurchaseText(data) {
-      console.log(data);
+    showPurchaseText(index) {
+      const data = this.products[index];
       this.openPurchaseBox = true;
-      this.newAddress = data.address;
-      this.id = data.id;
+      this.newName = data.name;
+      this.pk_id = data.pk_id;
+      this.index = index;
+      this.newAddress = localStorage.getItem("address");
     }
   },
   created() {

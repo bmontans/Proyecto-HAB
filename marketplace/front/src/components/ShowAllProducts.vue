@@ -23,7 +23,7 @@ export default {
   name: "ShowAllProducts",
   props: {
     products: Array,
-    product: Object,
+    product: Object
   },
   methods: {
     buyProductEvent(index) {
@@ -32,10 +32,9 @@ export default {
       this.$emit("comprar", data);
     },
     openModalEvent(index) {
-      let data = this.products[index];
-      this.$emit("openModal", data);
-    },
-  },
+      this.$emit("openModal", index);
+    }
+  }
 };
 </script>
 
