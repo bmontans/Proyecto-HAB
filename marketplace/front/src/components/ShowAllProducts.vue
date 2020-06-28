@@ -10,7 +10,6 @@
             <p>{{ product.description }}</p>
             <p>{{ product.price }}€</p>
             <button @click="openModalEvent(index)">BUY</button>
-            <button @click="buyProductEvent()">BUY</button>
           </div>
         </li>
       </ul>

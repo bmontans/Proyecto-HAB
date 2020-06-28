@@ -56,7 +56,34 @@
         <button @click="seeEditPassword = false">Back to profile</button>
       </div>
     </div>
-    <div class="userProducts">
+    <div class="userProductsPurchased">
+      <ul>
+        <li v-for="productAcquired in productsAcquired" :key="productAcquired.id">
+          <p>Product ID: {{ productAcquired.pk_id}}</p>
+          <p>Price: {{ productAcquired.price }}€</p>
+          <p>Sent to: {{ productAcquired.address }}</p>
+          <p>Purchase Date: {{ productAcquired.purchase_date | moment("D-MM-YYYY")}}</p>
+
+          <button @click="openModal(productAcquired)">Valorar</button>
+          <div v-show="modal" class="modal">
+            <div class="modalBox">
+              <h3>Rate this product.</h3>
+              <star-rating
+                @rating-selected="rating = $event"
+                :rating="rating"
+                v-bind:star-size="33"
+              ></star-rating>
+              <textarea v-model="comment" name="comment" id="comment" cols="100" rows="6"></textarea>
+              <br />
+              <button @click="ratingProduct(productAcquired, rating, comment)">Rate this purchase</button>
+              <br />
+              <button @click="closeModal()">Volver</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="userProductsListed">
       <ul>
         <li v-for="product in products" :key="product.id">
           <p>Product name: {{ product.name }}</p>
@@ -93,14 +120,18 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+import VModal from "vue-js-modal";
 import userinfo from "../components/UserInfo";
+import StarRating from "vue-star-rating";
+
 export default {
   name: "UserProfile",
-  components: { userinfo },
+  components: { userinfo, StarRating },
   data() {
     return {
       user: {},
       products: [],
+      productsAcquired: [],
       newUsername: "",
       newEmail: "",
       newAddress: "",
@@ -114,7 +145,10 @@ export default {
       newProductDescription: "",
       newProductPrice: "",
       seeEditProduct: false,
-      profilePicture: ""
+      profilePicture: "",
+      rating: 0,
+      comment: "",
+      modal: false
     };
   },
   methods: {
@@ -283,7 +317,7 @@ export default {
     },
     deleteProduct(product) {
       const self = this;
-      const id = product.pk_id;
+      const id = product.id;
       const idUser = localStorage.getItem("id");
       const token = localStorage.getItem("token");
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -346,11 +380,68 @@ export default {
         .catch(function(error) {
           console.error("FAILURE!!", error.response.data.message);
         });
+    },
+    // MOSTRAR ARTICULOS ADQUIRIDOS
+    getPurchasedProducts() {
+      const self = this;
+      const data = localStorage.getItem("id");
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios
+        .get("http://localhost:3000/user/products/acquired/" + data)
+        .then(function(response) {
+          console.log(response);
+          self.productsAcquired = response.data.data;
+        })
+        .catch(function(error) {
+          console.error(error.response.data.message);
+        });
+    },
+    showBuyProducts() {
+      this.articulosComprados = !this.articulosComprados;
+    },
+    // VALORAR PRODUCTO ADQUIRIDO
+    ratingProduct(productAcquired, rating, comment) {
+      self = this;
+      const id = productAcquired.pk_id;
+      const token = localStorage.getItem("token");
+      const data = localStorage.getItem("id");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios
+        .post("http://localhost:3000/products/rating/" + id, {
+          rating: rating,
+          comment: comment
+        })
+        .then(function(response) {
+          console.log(response);
+          Swal.fire({
+            icon: "success",
+            title: "This product has been successfully rated.",
+            timer: "5000"
+          });
+          location.reload();
+        })
+        .catch(function(error) {
+          console.error(error.response.data.message);
+          Swal.fire({
+            icon: "error",
+            title: "Woops...",
+            text: "You've already rated this product.",
+            timer: "5000"
+          });
+        });
+    },
+    openModal() {
+      this.modal = true;
+    },
+    closeModal() {
+      this.modal = false;
     }
   },
   created() {
     this.getUserData();
     this.getUserProducts();
+    this.getPurchasedProducts();
   }
 };
 </script>
