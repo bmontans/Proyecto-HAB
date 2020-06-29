@@ -29,7 +29,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import allusers from "../components/AllUsers";
 export default {
-  name: "UserProfile",
+  name: "UserList",
   components: { allusers },
   data() {
     return {
@@ -42,7 +42,8 @@ export default {
       oldPassword: "",
       password: "",
       passwordRepeat: "",
-      seeEditPassword: false
+      seeEditPassword: false,
+      profilePicture: ""
     };
   },
   methods: {
@@ -53,6 +54,8 @@ export default {
         .then(function(response) {
           console.log(response);
           self.users = response.data.data;
+          self.users.profile_picture =
+            "http://localhost:3000/uploads/" + self.users.profile_picture;
         })
         .catch(function(error) {
           console.error(error);
@@ -100,7 +103,7 @@ export default {
         .then(function(response) {
           self.editUser = true;
           Swal.fire(
-            "¡Usere actualizado correctamente!",
+            "¡User actualizado correctamente!",
             "Pulsa OK para continuar.",
             "success"
           );

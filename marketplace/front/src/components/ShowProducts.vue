@@ -9,8 +9,8 @@
             <p>{{ product.category}}</p>
             <p>{{ product.description }}</p>
             <p>{{ product.price }}€</p>
-            <button @click="deleteProductEvent(index)">Borrar</button>
-            <button @click="updateProductEvent(index)">Editar</button>
+            <button @click="deleteProductEvent(index)">DELETE</button>
+            <button @click="updateProductEvent(index)">EDIT</button>
           </div>
         </li>
       </ul>

@@ -2,7 +2,7 @@
   <div id="nav">
     <ul class="menu">
       <li>
-        <router-link to="/login">Login</router-link>
+        <router-link to="/">Home</router-link>
       </li>
       <li>
         <router-link to="/market">Market</router-link>
@@ -20,10 +20,11 @@
         <router-link to="/user-list">User List</router-link>
       </li>
       <li>
+        <router-link to="/login">Login</router-link>
+      </li>
+      <li>
         <div class="button_cont" @click="logoutUser()">
-          <a class="example_c" target="_blank" rel="nofollow noopener"
-            >Logout</a
-          >
+          <a class="example_c" target="_blank" rel="nofollow noopener">Logout</a>
         </div>
       </li>
       <br />
@@ -39,8 +40,8 @@ export default {
     logoutUser() {
       this.$router.push("/");
       return clearLogin();
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -71,13 +72,10 @@ li:hover {
 }
 .example_c {
   color: #f93943;
-  background: #ffffff;
-  border: 2px solid #494949;
   transition: all 0.4s ease 0s;
   padding: 20px;
 }
 .example_c:hover {
-  color: #b27092;
   background: #e84855;
   transition: all 0.4s ease 0s;
 }
