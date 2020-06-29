@@ -4,17 +4,17 @@
 
     <br />
     <br />
-    <p v-show="required">TIENES DATOS AÚN POR RELLENAR.</p>
+    <p v-show="required">YOU NEED TO FILL ALL THE INFORMATION</p>
     <!-- FORMULARIO -->
     <div>
-      <label for="nombre">Nombre del producto</label>
+      <label for="nombre">Product name</label>
       <br />
-      <input type="text" name="name" placeholder="Nombre del producto" v-model="name" />
+      <input type="text" name="name" placeholder="Product name..." v-model="name" />
       <br />
       <br />
       <label for="category">Category</label>
       <br />
-      <input type="text" name="category" placeholder="category..." v-model="category" />
+      <input type="text" name="category" placeholder="Category..." v-model="category" />
       <br />
       <br />
       <label for="description">Description</label>
@@ -22,12 +22,14 @@
       <input type="description" name="description" placeholder="Description" v-model="description" />
       <br />
       <br />
-      <label for="price">price</label>
+      <label for="price">Price</label>
       <br />
-      <input type="text" name="price" placeholder="price..." v-model="price" />€
+      <input type="text" name="price" placeholder="Price..." v-model="price" />€
       <br />
       <br />
-      <button @click="addProduct(name, category, description, price)">CREAR</button>
+      <button
+        @click="addProduct(name, category, description, price)"
+      >LIST YOUR PRODUCT IN THE MARKETPLACE</button>
     </div>
   </div>
 </template>

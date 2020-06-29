@@ -22,7 +22,7 @@ export default {
 body,
 html {
   margin: 0 auto;
-  background: #a39594;
+  background: #7e7e7e;
   font-family: "Noto Sans", sans-serif;
 }
 #app {

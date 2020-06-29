@@ -5,7 +5,7 @@
       <ul>
         <li>
           <div class="User">
-            <img :src="user.profile_picture" alt="user picture" />
+            <img class="profile_pic" :src="user.profile_picture" alt="user picture" />
             <p>{{ user.pk_id }}</p>
             <p>Username: {{ user.username }}</p>
             <p>Email: {{ user.email }}</p>
@@ -41,6 +41,12 @@ export default {
 </script>
 
 <style scoped>
+.profile_pic {
+  min-width: 150px;
+  min-height: 150px;
+  max-width: 500px;
+  max-height: 500px;
+}
 ul {
   list-style: none;
   display: flex;

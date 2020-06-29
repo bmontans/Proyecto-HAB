@@ -4,10 +4,16 @@
       <ul>
         <li v-for="(product, index) in products" :key="product.id">
           <div class="products">
-            <p>{{ product.pk_id }}</p>
+            <p>PRODUCT NAME</p>
             <p>{{ product.name }}</p>
+            <br />
+            <p>CATEGORY</p>
             <p>{{ product.category }}</p>
+            <br />
+            <p>DESCRIPTION</p>
             <p>{{ product.description }}</p>
+            <br />
+            <p>PRICE</p>
             <p>{{ product.price }}€</p>
             <button @click="openModalEvent(index)">BUY</button>
           </div>

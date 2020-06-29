@@ -21,7 +21,7 @@ div.home {
 }
 
 img {
-  max-height: 100vh;
+  max-height: 86vh;
 }
 </style>
 

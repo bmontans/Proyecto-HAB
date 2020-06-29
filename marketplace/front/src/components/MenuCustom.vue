@@ -52,13 +52,16 @@ export default {
   background: #020103;
   max-width: 100vw;
 }
-ul {
+
+.menu {
+  margin: 0;
   list-style: none;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-end;
 }
+
 li {
   justify-content: center;
   text-transform: uppercase;

@@ -161,8 +161,13 @@ export default {
         .get("http://localhost:3000/user/" + data)
         .then(function(response) {
           self.user = response.data.data;
-          self.user.profile_picture =
-            "http://localhost:3000/uploads/" + self.user.profile_picture;
+          if (!!self.user.profile_picture) {
+            self.user.profile_picture =
+              "http://localhost:3000/uploads/" + self.user.profile_picture;
+          } else {
+            self.user.profile_picture =
+              "http://localhost:3000/uploads/perfil.png";
+          }
           console.log(response);
         })
         .catch(function(error) {

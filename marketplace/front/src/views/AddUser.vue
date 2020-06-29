@@ -1,15 +1,20 @@
 <template>
   <div>
     <vue-headful title="Add user" />
-
+    <div>
+      <h1>Already got an account?</h1>
+      <p>
+        Click
+        <router-link to="/login">here</router-link>, to log in with your credentials.
+      </p>
+    </div>
     <br />
-    <br />
-    <p v-show="required">TIENES DATOS AÚN POR RELLENAR.</p>
+    <p class="required" v-show="required">Filling all fields is required to set up your account!</p>
     <!-- FORMULARIO -->
     <div>
-      <label for="nombre">Nombre de usuario</label>
+      <label for="nombre">Username</label>
       <br />
-      <input type="text" name="username" placeholder="Nombre de usuario..." v-model="username" />
+      <input type="text" name="username" placeholder="Username..." v-model="username" />
       <br />
       <br />
       <label for="nombre">Address</label>
@@ -17,9 +22,9 @@
       <input type="text" name="address" placeholder="Address..." v-model="address" />
       <br />
       <br />
-      <label for="password">Contraseña</label>
+      <label for="password">Password</label>
       <br />
-      <input type="password" name="password" placeholder="Contraseña" v-model="password" />
+      <input type="password" name="password" placeholder="Password..." v-model="password" />
       <br />
       <br />
       <label for="email">Email</label>
@@ -96,7 +101,12 @@ export default {
             console.log(error);
           });
       } else {
-        alert("No has rellenado todos los campos.");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Information is missing",
+          timer: 3000
+        });
       }
     },
     emptyFields() {
@@ -111,7 +121,7 @@ export default {
 </script>
 
 <style scoped>
-p {
+.required {
   color: red;
 }
 label {

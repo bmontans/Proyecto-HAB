@@ -2,6 +2,8 @@
   <div>
     <vue-headful title="Login" />
     <div class="login">
+      <h1>WELCOME TO</h1>
+      <img src="../assets/auct.png" alt />
       <h2>Login with your credentials</h2>
       <input type="text" placeholder="Username..." v-model="username" />
       <input type="password" placeholder="Password..." v-model="password" />

@@ -54,8 +54,15 @@ export default {
         .then(function(response) {
           console.log(response);
           self.users = response.data.data;
-          self.users.profile_picture =
-            "http://localhost:3000/uploads/" + self.users.profile_picture;
+          self.users = self.users.map(user => {
+            if (!!user.profile_picture) {
+              user.profile_picture =
+                "http://localhost:3000/uploads/" + user.profile_picture;
+            } else {
+              user.profile_picture = "http://localhost:3000/uploads/perfil.png";
+            }
+            return user;
+          });
         })
         .catch(function(error) {
           console.error(error);
