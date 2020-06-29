@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="menu"></div>
+    <img src="../assets/home-background.jpeg" alt />
   </div>
 </template>
 
@@ -13,3 +13,16 @@ export default {
   components: {}
 };
 </script>
+
+<style scoped>
+div.home {
+  background: black;
+  max-width: 100vw;
+}
+
+img {
+  max-height: 100vh;
+}
+</style>
+
+

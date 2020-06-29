@@ -514,7 +514,7 @@ li {
   align-items: center;
   font-size: 1.1rem;
   font-weight: bold;
-  background: #eee5e9;
+  background: #a39594;
   width: 80%;
 }
 </style>

@@ -6,11 +6,16 @@
 
 <script>
 export default {
-  name: "FooterCustom",
+  name: "FooterCustom"
 };
 </script>
 
 <style scoped>
+div.footer {
+  background: #020103;
+  max-width: 100vw;
+}
+
 h4 {
   background: black;
   padding: 1rem;

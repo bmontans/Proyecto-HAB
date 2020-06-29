@@ -12,7 +12,7 @@ import footercustom from "@/components/FooterCustom.vue";
 
 export default {
   name: "App",
-  components: { menucustom, footercustom },
+  components: { menucustom, footercustom }
 };
 </script>
 
@@ -30,7 +30,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #080b0c;
+  color: #020103;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -56,6 +56,7 @@ a.router-link-exact-active {
 }
 
 #nav a:hover {
+  transition: all 0.4s ease 0s;
   color: #ffff70;
   border-bottom: 3px solid #ffff70;
 }

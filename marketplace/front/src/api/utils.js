@@ -47,6 +47,7 @@ export function clearLogin() {
   localStorage.removeItem("role");
   localStorage.removeItem("username");
   localStorage.removeItem("id");
+  localStorage.removeItem("address");
   clearAdmin();
 }
 
