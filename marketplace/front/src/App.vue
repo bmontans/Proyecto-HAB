@@ -41,22 +41,10 @@ html {
 }
 a {
   font-weight: bold;
-  color: #87baab;
+  color: whitesmoke;
   text-decoration: none;
 }
 a.router-link-exact-active {
-  color: #ffff70;
-  border-bottom: 3px solid #ffff70;
-}
-
-#nav a {
-  text-align: center;
-  padding: 1rem 0;
-  text-decoration: none;
-}
-
-#nav a:hover {
-  transition: all 0.4s ease 0s;
   color: #ffff70;
   border-bottom: 3px solid #ffff70;
 }

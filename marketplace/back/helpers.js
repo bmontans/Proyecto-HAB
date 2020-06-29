@@ -74,6 +74,81 @@ async function deletePhoto(imagePath) {
   if (imagePath !== "perfil.png")
     await fs.unlink(path.join(fileUploadPath, imagePath));
 }
+function searchProducts(queryParams) {
+  let query = `SELECT nombre_articulo, fecha_inicio, fecha_fin, disponibilidad, tipo, subtipo, precio, imagen
+    FROM articulos`;
+
+  const params = [];
+  const {
+    nombre_articulo,
+    fecha_inicio,
+    fecha_fin,
+    disponibilidad,
+    tipo,
+    subtipo,
+    precio,
+    imagen,
+  } = queryParams;
+
+  if (
+    nombre_articulo ||
+    fecha_inicio ||
+    fecha_fin ||
+    disponibilidad ||
+    tipo ||
+    subtipo ||
+    precio ||
+    imagen
+  ) {
+    query = `${query} WHERE`;
+    const conditions = [];
+
+    if (nombre_articulo) {
+      conditions.push("nombre_articulo LIKE ?");
+      params.push(`%${nombre_articulo}%`);
+    }
+
+    if (fecha_inicio) {
+      conditions.push("fecha_inicio >= ?");
+      params.push(fecha_inicio);
+    }
+
+    if (fecha_fin) {
+      conditions.push("fecha_fin <= ?");
+      params.push(fecha_fin);
+    }
+    if (disponibilidad) {
+      conditions.push("disponibilidad = ?");
+      params.push(disponibilidad);
+    }
+    if (tipo) {
+      conditions.push("tipo = ?");
+      params.push(tipo);
+    }
+
+    if (subtipo) {
+      conditions.push("subtipo = ?");
+      params.push(subtipo);
+    }
+
+    if (precio) {
+      conditions.push("precio <= ?");
+      params.push(precio);
+    }
+    if (imagen) {
+      conditions.push("imagen LIKE ?");
+      params.push(`%${imagen}%`);
+    }
+
+    query = `${query} ${conditions.join(" AND ")} `;
+  }
+  query = `${query} 
+    ORDER BY fecha_fin`;
+  return {
+    query,
+    params,
+  };
+}
 
 module.exports = {
   sendEmail,
@@ -83,4 +158,5 @@ module.exports = {
   deletePhoto,
   processAndSavePhoto,
   formatDateToDB,
+  searchProducts,
 };

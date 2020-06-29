@@ -33,11 +33,11 @@ const { deleteProduct } = require("./controllers/product/delete_product");
 const { getCategory } = require("./controllers/product/get_category");
 const { buyProduct } = require("./controllers/product/buy_product");
 const { rateProduct } = require("./controllers/product/product_rating");
+const { search } = require("./controllers/product/search_product");
 const {
   getRatingProducts,
 } = require("./controllers/product/get_product_rating");
 
-const { searchProduct } = require("./controllers/product/search_product");
 const { getUserProducts } = require("./controllers/user/get_user_products");
 
 app.use(morgan("dev"));
@@ -73,8 +73,8 @@ app.get("/products", getAllProducts); // obtener todos los productos listados
 app.get("/products/:category", userIsAuthenticated, userIsAdmin, getCategory); //obtener todos los productos de x categoria
 app.post("/products/purchase/:id", userIsAuthenticated, buyProduct); // comprar producto
 app.post("/products/rating/:id", userIsAuthenticated, rateProduct); // valorar producto
-app.get("/products/search", searchProduct); //busqueda por nombre or categoria
 app.get("/products/rating/:id", getRatingProducts); // obtener rating producto
+app.get("/searching", search); // Buscador top
 
 // Error middleware
 app.use((error, req, res, next) => {

@@ -1,7 +1,22 @@
 <template>
   <div class="home">
     <vue-headful title="products" />
-    <div class="menu"></div>
+    <br />
+    <br />
+    <!-- BUSCADOR DE PRODUCTOS EN EL MARKETPLACE -->
+    <div class="buscador">
+      <label for="bySearch">Browse the marketplace for products you might be interested into!</label>
+      <br />
+      <br />
+      <input
+        v-model="search"
+        id="search"
+        name="bySearch"
+        type="search"
+        placeholder="Search..."
+        size="50"
+      />
+    </div>
     <showallproducts
       :products="products"
       :product="product"
@@ -45,7 +60,8 @@ export default {
       correctData: false,
       openPurchaseBox: false,
       pk_id: "",
-      index: ""
+      index: "",
+      search: ""
     };
   },
   methods: {
@@ -114,6 +130,19 @@ export default {
   },
   created() {
     this.getProducts();
+  },
+  computed: {
+    filteredProducts() {
+      if (!this.search) {
+        return this.products;
+      }
+      return this.products.filter(
+        product =>
+          product.name.toLowerCase().includes(this.search.toLowerCase()) ||
+          product.category.toLowerCase().includes(this.search.toLowerCase()) ||
+          product.price.toLowerCase().includes(this.search.toLowerCase())
+      );
+    }
   }
 };
 </script>

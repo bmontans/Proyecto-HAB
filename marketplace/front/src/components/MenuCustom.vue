@@ -19,8 +19,8 @@
       <li>
         <router-link to="/user-list">User List</router-link>
       </li>
-      <li>
-        <router-link to="/login">Login</router-link>
+      <li class="login">
+        <router-link class="loginA" to="/login">Login</router-link>
       </li>
       <li>
         <div class="button_cont" @click="logoutUser()">
@@ -72,12 +72,38 @@ li {
   opacity: 70%;
   width: 10%;
   height: 1rem;
+  padding: 0.5rem;
 }
 li:hover {
   opacity: 100%;
 }
+
+.login {
+  background: #ffff70;
+  border-radius: 5rem;
+}
+
+.loginA {
+  color: #020103;
+}
+.loginA:hover {
+  transition: all 0.4s ease 0s;
+  color: #020103;
+}
+
 .example_c {
   color: #a22c29;
+}
+
+a {
+  text-align: center;
+  padding: 1rem 0;
+  text-decoration: none;
+}
+
+a:hover {
   transition: all 0.4s ease 0s;
+  color: #ffff70;
+  border-bottom: 3px solid #ffff70;
 }
 </style>
