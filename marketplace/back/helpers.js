@@ -75,75 +75,34 @@ async function deletePhoto(imagePath) {
     await fs.unlink(path.join(fileUploadPath, imagePath));
 }
 function searchProducts(queryParams) {
-  let query = `SELECT nombre_articulo, fecha_inicio, fecha_fin, disponibilidad, tipo, subtipo, precio, imagen
-    FROM articulos`;
+  let query = `SELECT name, category, price FROM product`;
 
   const params = [];
-  const {
-    nombre_articulo,
-    fecha_inicio,
-    fecha_fin,
-    disponibilidad,
-    tipo,
-    subtipo,
-    precio,
-    imagen,
-  } = queryParams;
+  const { name, category, price } = queryParams;
 
-  if (
-    nombre_articulo ||
-    fecha_inicio ||
-    fecha_fin ||
-    disponibilidad ||
-    tipo ||
-    subtipo ||
-    precio ||
-    imagen
-  ) {
+  if (name || category || price) {
     query = `${query} WHERE`;
     const conditions = [];
 
-    if (nombre_articulo) {
-      conditions.push("nombre_articulo LIKE ?");
-      params.push(`%${nombre_articulo}%`);
+    if (name) {
+      conditions.push("name LIKE ?");
+      params.push(`%${name}%`);
     }
 
-    if (fecha_inicio) {
-      conditions.push("fecha_inicio >= ?");
-      params.push(fecha_inicio);
+    if (category) {
+      conditions.push("category >= ?");
+      params.push(category);
     }
 
-    if (fecha_fin) {
-      conditions.push("fecha_fin <= ?");
-      params.push(fecha_fin);
-    }
-    if (disponibilidad) {
-      conditions.push("disponibilidad = ?");
-      params.push(disponibilidad);
-    }
-    if (tipo) {
-      conditions.push("tipo = ?");
-      params.push(tipo);
-    }
-
-    if (subtipo) {
-      conditions.push("subtipo = ?");
-      params.push(subtipo);
-    }
-
-    if (precio) {
-      conditions.push("precio <= ?");
-      params.push(precio);
-    }
-    if (imagen) {
-      conditions.push("imagen LIKE ?");
-      params.push(`%${imagen}%`);
+    if (price) {
+      conditions.push("price <= ?");
+      params.push(price);
     }
 
     query = `${query} ${conditions.join(" AND ")} `;
   }
   query = `${query} 
-    ORDER BY fecha_fin`;
+    ORDER BY price`;
   return {
     query,
     params,

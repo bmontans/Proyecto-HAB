@@ -14,7 +14,7 @@ async function editUser(req, res, next) {
     await updateUserSchema.validateAsync(req.body);
     connection = await getConnection();
     const { id } = req.params;
-    const { email } = req.body;
+    const { email, address } = req.body;
 
     const [
       current,
@@ -42,8 +42,8 @@ async function editUser(req, res, next) {
     }
 
     await connection.query(
-      ` UPDATE user SET email=?, profile_picture=? WHERE pk_id=?`,
-      [email, savedFileName, id]
+      ` UPDATE user SET email=?, address=?, profile_picture=? WHERE pk_id=?`,
+      [email, address, savedFileName, id]
     );
     res.send({ status: "ok", message: "Usuario actualizado" });
   } catch (error) {

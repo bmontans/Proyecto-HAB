@@ -4,6 +4,7 @@
       <ul>
         <li v-for="(product, index) in products" :key="product.id">
           <div class="products">
+            <img class="product_pic" :src="product.product_picture" alt="product pic" />
             <p>PRODUCT NAME</p>
             <p>{{ product.name }}</p>
             <br />

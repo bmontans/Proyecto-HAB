@@ -74,7 +74,7 @@ app.get("/products/:category", userIsAuthenticated, userIsAdmin, getCategory); /
 app.post("/products/purchase/:id", userIsAuthenticated, buyProduct); // comprar producto
 app.post("/products/rating/:id", userIsAuthenticated, rateProduct); // valorar producto
 app.get("/products/rating/:id", getRatingProducts); // obtener rating producto
-app.get("/searching", search); // Buscador top
+app.get("/searching", search); // buscador productos en el marketplace
 
 // Error middleware
 app.use((error, req, res, next) => {

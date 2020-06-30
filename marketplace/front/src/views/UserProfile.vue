@@ -59,7 +59,7 @@
     <div class="userProductsPurchased">
       <ul>
         <li v-for="productAcquired in productsAcquired" :key="productAcquired.id">
-          <p>Product ID: {{ productAcquired.pk_id}}</p>
+          <p>Transaction ID: {{ productAcquired.pk_id}}</p>
           <p>Price: {{ productAcquired.price }}€</p>
           <p>Sent to: {{ productAcquired.address }}</p>
           <p>Purchase Date: {{ productAcquired.purchase_date | moment("D-MM-YYYY")}}</p>
@@ -86,6 +86,7 @@
     <div class="userProductsListed">
       <ul>
         <li v-for="product in products" :key="product.id">
+          <img class="product_pic" :src="product.product_picture" alt="product pic" />
           <p>Product name: {{ product.name }}</p>
           <p>Category: {{ product.category }}</p>
           <p>Description: {{ product.description }}</p>

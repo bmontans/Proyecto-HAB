@@ -1,8 +1,12 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const { getConnection } = require('../../db');
-const { generateError } = require('../../helpers');
-const { editProductSchema } = require('../../validations/edit_product');
+const { getConnection } = require("../../db");
+const {
+  generateError,
+  processAndSavePhoto,
+  deletePhoto,
+} = require("../../helpers");
+const { editProductSchema } = require("../../validations/edit_product");
 
 async function editProduct(req, res, next) {
   let connection;
@@ -13,9 +17,9 @@ async function editProduct(req, res, next) {
     const { name, description, price } = req.body;
 
     const [
-      current
+      current,
     ] = await connection.query(` SELECT pk_id FROM product WHERE pk_id=?`, [
-      id
+      id,
     ]);
     if (!current.length) {
       throw generateError(
@@ -24,11 +28,28 @@ async function editProduct(req, res, next) {
       );
     }
 
+    let savedFileName;
+
+    if (req.files && req.files.product_picture) {
+      try {
+        savedFileName = await processAndSavePhoto(req.files.product_picture);
+        if (current && current[0].product_picture) {
+          await deletePhoto(current[0].product_picture);
+        }
+      } catch (error) {
+        throw generateError(
+          "No se puede procesar la imagen. Intentelo de nuevo más tarde.",
+          400
+        );
+      }
+    } else {
+      savedFileName = current.product_picture;
+    }
     await connection.query(
-      ` UPDATE product SET name=?, description=?, price=?  WHERE pk_id=?`,
-      [name, description, price, id]
+      ` UPDATE product SET name=?, description=?, price=?, product_picture=?  WHERE pk_id=?`,
+      [name, description, price, savedFileName, id]
     );
-    res.send({ status: 'ok', message: 'Product successfully updated.' });
+    res.send({ status: "ok", message: "Product successfully updated." });
   } catch (error) {
     next(error);
   } finally {

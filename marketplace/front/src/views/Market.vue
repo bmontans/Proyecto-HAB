@@ -3,20 +3,53 @@
     <vue-headful title="products" />
     <br />
     <br />
-    <!-- BUSCADOR DE PRODUCTOS EN EL MARKETPLACE -->
-    <div class="buscador">
-      <label for="bySearch">Browse the marketplace for products you might be interested into!</label>
-      <br />
-      <br />
-      <input
-        v-model="search"
-        id="search"
-        name="bySearch"
-        type="search"
-        placeholder="Search..."
-        size="50"
-      />
+    <button @click="showBuscador()">PRODUCT SEARCH</button>
+
+    <!-- FORMULARIO PARA BUSCADOR -->
+    <div class="buscador" v-show="buscadorAvanzado">
+      <p>
+        <b>Nombre</b>
+        <br />
+        <input
+          v-model="name"
+          type="search"
+          name="name"
+          size="33"
+          placeholder="Search for any product!"
+        />
+      </p>
+      <p>
+        <b>Articulo</b>
+        <br />
+        <input v-model="category" type="radio" name="category" value="consoles" />Consoles
+        <br />
+        <input v-model="category" type="radio" name="category" value="keyboard" />Keyboard
+        <br />
+        <input v-model="category" type="radio" name="category" value="mices" />Mices
+        <br />
+      </p>
+      <p>
+        <b>price</b>
+        <br />
+        <input v-model="price" type="number" name="price" />
+      </p>
+      <p>
+        <input type="reset" value="Borrar" />
+      </p>
+
+      <button @click="searchProducts()">OBTENER RESULTADOS</button>
+      <!-- OBTENCION DE LOS RESULTADOS -->
+      <div>
+        <ul v-for="searchResult in searchResults" :key="searchResult.id">
+          <div>
+            <li>{{ searchResult.name }}</li>
+            <li>{{ searchResult.category }}</li>
+            <li>{{ searchResult.price }}€</li>
+          </div>
+        </ul>
+      </div>
     </div>
+
     <showallproducts
       :products="products"
       :product="product"
@@ -61,7 +94,9 @@ export default {
       openPurchaseBox: false,
       pk_id: "",
       index: "",
-      search: ""
+      search: "",
+      buscadorAvanzado: false,
+      searchResults: []
     };
   },
   methods: {
@@ -126,6 +161,52 @@ export default {
       this.pk_id = data.pk_id;
       this.index = index;
       this.newAddress = localStorage.getItem("address");
+    },
+    searchProducts() {
+      const self = this;
+      const searchProductsParams = self.makingSearchURL();
+      axios
+        .get(`http://localhost:3000/searching?${searchProductsParams}`)
+        .then(function(response) {
+          self.buscadorAvanzado = true;
+          return searchResult;
+        })
+        .catch(function(error) {
+          Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "No existen coincidencias con tu criterio de busqueda",
+            timer: 3333
+          });
+        });
+    },
+    makingSearchURL() {
+      const params = new URLSearchParams();
+      if (!!this.name) {
+        params.append("name", this.name);
+      }
+      if (!!this.fecha_inicio) {
+        params.append("fecha_inicio", this.fecha_inicio);
+      }
+      if (!!this.fecha_fin) {
+        params.append("fecha_fin", this.fecha_final);
+      }
+      if (!!this.disponibilidad) {
+        params.append("disponibilidad", this.disponibilidad);
+      }
+      if (!!this.tipo) {
+        params.append("tipo", this.tipo);
+      }
+      if (!!this.category) {
+        params.append("category", this.category);
+      }
+      if (!!this.price) {
+        params.append("price", this.price);
+      }
+      return params;
+    },
+    showBuscador() {
+      this.buscadorAvanzado = !this.buscadorAvanzado;
     }
   },
   created() {

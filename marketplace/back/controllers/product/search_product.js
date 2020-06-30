@@ -11,10 +11,7 @@ async function search(req, res, next) {
 
     const [result] = await connection.query(query, params);
     if (!result.length) {
-      throw generateError(
-        `No existen coincidencias con tus criterios de búsqueda`,
-        404
-      );
+      throw generateError(`There are no matches`, 404);
     }
     res.send({
       status: "ok",
