@@ -90,7 +90,7 @@ function searchProducts(queryParams) {
     }
 
     if (category) {
-      conditions.push("category >= ?");
+      conditions.push("category = ?");
       params.push(category);
     }
 

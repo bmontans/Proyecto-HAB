@@ -43,6 +43,7 @@
         <ul v-for="searchResult in searchResults" :key="searchResult.id">
           <div>
             <li>{{ searchResult.name }}</li>
+            <!--             <li>{{searchResult.product_picture}}</li> -->
             <li>{{ searchResult.category }}</li>
             <li>{{ searchResult.price }}€</li>
           </div>
@@ -96,7 +97,8 @@ export default {
       index: "",
       search: "",
       buscadorAvanzado: false,
-      searchResults: []
+      searchResults: [],
+      productPicture: ""
     };
   },
   methods: {
@@ -105,8 +107,12 @@ export default {
       axios
         .get("http://localhost:3000/products")
         .then(function(response) {
-          console.log(response);
           self.products = response.data.data;
+          self.products = response.data.data.map(product => {
+            product.product_picture =
+              "http://localhost:3000/uploads/" + self.product.product_picture;
+            return product;
+          });
         })
         .catch(function(error) {
           console.error(error);
@@ -168,34 +174,16 @@ export default {
       axios
         .get(`http://localhost:3000/searching?${searchProductsParams}`)
         .then(function(response) {
+          console.log(response);
           self.buscadorAvanzado = true;
-          return searchResult;
+          self.searchResults = response.data.data;
         })
-        .catch(function(error) {
-          Swal.fire({
-            icon: "warning",
-            title: "Oops...",
-            text: "No existen coincidencias con tu criterio de busqueda",
-            timer: 3333
-          });
-        });
+        .catch(function(error) {});
     },
     makingSearchURL() {
       const params = new URLSearchParams();
       if (!!this.name) {
         params.append("name", this.name);
-      }
-      if (!!this.fecha_inicio) {
-        params.append("fecha_inicio", this.fecha_inicio);
-      }
-      if (!!this.fecha_fin) {
-        params.append("fecha_fin", this.fecha_final);
-      }
-      if (!!this.disponibilidad) {
-        params.append("disponibilidad", this.disponibilidad);
-      }
-      if (!!this.tipo) {
-        params.append("tipo", this.tipo);
       }
       if (!!this.category) {
         params.append("category", this.category);
