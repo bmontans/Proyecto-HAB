@@ -178,7 +178,14 @@ export default {
           self.buscadorAvanzado = true;
           self.searchResults = response.data.data;
         })
-        .catch(function(error) {});
+        .catch(function(error) {
+          Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "No existen coincidencias con tu criterio de busqueda",
+            timer: 4000
+          });
+        });
     },
     makingSearchURL() {
       const params = new URLSearchParams();
@@ -231,5 +238,20 @@ export default {
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+}
+
+b {
+  color: rgb(48, 175, 97);
+}
+
+h1 {
+  font-size: 3.5rem;
+  margin-left: 15rem;
+  margin-top: -5rem;
+}
+h2 {
+  margin-left: 15rem;
+  color: rgb(48, 175, 97);
+  margin-top: -2.5rem;
 }
 </style>
