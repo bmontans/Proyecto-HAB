@@ -1,8 +1,8 @@
 <template>
   <div>
     <vue-headful title="User Profile" />
-    <h2>Welcome to your personal user profile, {{ user.username }}.</h2>
     <div>
+      <h2>Welcome to your personal user profile, {{ user.username }}.</h2>
       <ul>
         <li>
           <div class="User">
@@ -13,8 +13,7 @@
             <p>Location: {{ user.address }}</p>
             <p>Birthdate: {{ user.birthdate | moment("D-MM-YYYY") }}</p>
             <p>Creation Date: {{ user.creation_date | moment("D-MM-YYYY") }}</p>
-            <button @click="deleteUserEvent()">Borrar</button>
-            <button @click="updateUserEvent()">Editar</button>
+            <button @click="updateUserEvent()">EDIT</button>
           </div>
         </li>
       </ul>
@@ -29,10 +28,6 @@ export default {
     user: Object
   },
   methods: {
-    deleteUserEvent(index) {
-      let data = this.user.id;
-      this.$emit("borrar", data);
-    },
     updateUserEvent() {
       let data = this.user;
       this.$emit("editar", data);

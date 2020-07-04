@@ -3,10 +3,10 @@
     <vue-headful title="Marketplace" />
     <br />
     <br />
-    <button @click="showBuscador()">PRODUCT SEARCH</button>
+    <button @click="showSearch()">PRODUCT SEARCH</button>
 
     <!-- FORMULARIO PARA BUSCADOR -->
-    <div class="buscador" v-show="buscadorAvanzado">
+    <div class="buscador" v-show="advancedSearch">
       <p>
         <b>Nombre</b>
         <br />
@@ -63,7 +63,7 @@
         <input type="text" v-model="newName" placeholder="Address" />
         <input type="text" v-model="newAddress" placeholder="Address" />
         <button @click="buyProduct()">BUY</button>
-        <button @click="openPurchaseBox = false">Cerrar</button>
+        <button @click="openPurchaseBox = false">CANCEL</button>
       </div>
     </div>
   </div>
@@ -97,7 +97,7 @@ export default {
       pk_id: "",
       index: "",
       search: "",
-      buscadorAvanzado: false,
+      advancedSearch: false,
       searchResults: [],
       productPicture: ""
     };
@@ -176,7 +176,7 @@ export default {
         .get(`http://localhost:3000/searching?${searchProductsParams}`)
         .then(function(response) {
           console.log(response);
-          self.buscadorAvanzado = true;
+          self.advancedSearch = true;
           self.searchResults = response.data.data;
         })
         .catch(function(error) {
@@ -201,8 +201,8 @@ export default {
       }
       return params;
     },
-    showBuscador() {
-      this.buscadorAvanzado = !this.buscadorAvanzado;
+    showSearch() {
+      this.advancedSearch = !this.advancedSearch;
     }
   },
   created() {

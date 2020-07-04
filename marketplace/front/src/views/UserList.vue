@@ -147,7 +147,7 @@ export default {
   width: 100%;
 }
 .modalBox {
-  background: #fefefe;
+  background: #2e3035;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;

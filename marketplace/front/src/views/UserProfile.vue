@@ -11,9 +11,8 @@
     <button @click="userShowEditPassword()">Update your Password</button>
     <div class="modal" v-show="editUser">
       <div class="modalBox">
-        <p class="editUser">EDIT USER PROFILE</p>
         <p>Username:</p>
-        <input type="text" v-model="newUsername" placeholder="Username" />
+        <input type="text" v-model="newUsername" placeholder="Username" disabled />
         <br />
         <p>New email:</p>
         <input type="text" v-model="newEmail" placeholder="Email" />
@@ -21,9 +20,8 @@
         <p>New address:</p>
         <input type="text" v-model="newAddress" placeholder="Address" />
         <br />
-        <button @click="updateUsers()">Actualizar</button>
-        <button @click="editUser = false">Cerrar</button>
-        <br />
+        <button @click="updateUsers()">UPDATE</button>
+        <button @click="editUser = false">CANCEL</button>
         <br />
         <div class="editAvatar">
           <label>
@@ -60,6 +58,7 @@
 
     <!-- LISTA DE PRODUCTOS COMPRADOS POR EL USUARIO -->
     <div class="userProductsPurchased">
+      <h1>PRODUCTS PURCHASED</h1>
       <ul>
         <li v-for="productAcquired in productsAcquired" :key="productAcquired.id">
           <p>Transaction ID: {{ productAcquired.pk_id}}</p>
@@ -371,15 +370,13 @@ export default {
     },
     submitFile() {
       const self = this;
-      //enviar el archivo al servidor
       const server = "http://localhost:3000/";
       const data = localStorage.getItem("id");
-      let formData = new FormData(); //iniciamos el form data
+      let formData = new FormData();
       formData.append("profile_picture", self.profilePicture);
       formData.append("username", self.newUsername);
       formData.append("email", self.newEmail);
-      formData.append("address", self.newAddress); // añadimos el form data que queremos enviar
-      console.log("holi");
+      formData.append("address", self.newAddress);
       axios
         .put(server + "user/" + data, formData, {
           headers: {
@@ -387,10 +384,17 @@ export default {
           }
         })
         .then(function(response) {
-          console.log("SUCCESS!!");
+          location.reload();
         })
         .catch(function(error) {
-          console.error("FAILURE!!", error.response.data.message);
+          console.error(error.response.data.message);
+          Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text:
+              "There was an error processing the image. Please, try again later!",
+            timer: 4000
+          });
         });
     },
     // MOSTRAR ARTICULOS ADQUIRIDOS
@@ -467,7 +471,7 @@ export default {
   width: 100%;
 }
 .modalBox {
-  background: #fefefe;
+  background: #2e3035;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
@@ -484,7 +488,7 @@ export default {
 }
 
 .editProductBox {
-  background: #fefefe;
+  background: #2e3035;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
@@ -501,11 +505,15 @@ export default {
 }
 
 .passwordBox {
-  background: #fefefe;
+  background: #2e3035;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+}
+
+.editAvatar {
+  color: whitesmoke;
 }
 
 ul {
@@ -525,7 +533,7 @@ li {
   align-items: center;
   font-size: 1.1rem;
   font-weight: bold;
-  width: 40%;
+  width: 70%;
 
   background: rgba(0, 0, 0, 0.322);
   padding-bottom: 2rem;

@@ -6,12 +6,13 @@
         <li v-for="(user, index) in users" :key="user.id">
           <div class="Users">
             <img class="profile_pic" :src="user.profile_picture" alt="profile pic" />
-            <p>{{ user.pk_id }}</p>
-            <p>{{ user.username }}</p>
-            <p>{{ user.email }}</p>
-            <p>{{ user.address }}</p>
-            <button @click="deleteUserEvent(index)">Borrar</button>
-            <button @click="updateUserEvent(index)">Editar</button>
+            <p>User ID: {{ user.pk_id }}</p>
+            <p>Creation Date: {{user.creation_date | moment("D-MM-YYYY") }}</p>
+            <p>Username: {{ user.username }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Address: {{ user.address }}</p>
+            <button @click="deleteUserEvent(index)">DELETE</button>
+            <button @click="updateUserEvent(index)">EDIT</button>
           </div>
         </li>
       </ul>

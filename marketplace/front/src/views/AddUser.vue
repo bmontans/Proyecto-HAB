@@ -94,8 +94,8 @@ export default {
             self.emptyFields();
             console.log(response);
             Swal.fire(
-              "¡Usuario creado correctamente!",
-              "Vuelve al menú principal y entra con tus credenciales.",
+              "User successfully created!",
+              "A confirmation link has been sent to your email. Check your inbox!",
               "success"
             );
           })
