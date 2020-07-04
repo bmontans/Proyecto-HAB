@@ -253,7 +253,7 @@ ul {
   align-items: center;
   font-size: 1.1rem;
   font-weight: bold;
-  width: 40%;
+  width: 80%;
 
   background: rgba(0, 0, 0, 0.322);
   padding-bottom: 2rem;
