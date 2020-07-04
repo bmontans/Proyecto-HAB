@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <vue-headful title="Add user" />
+  <div class="addProduct">
+    <vue-headful title="Add Product" />
 
-    <br />
-    <br />
-    <p v-show="required">YOU NEED TO FILL ALL THE INFORMATION</p>
     <!-- FORMULARIO -->
-    <div>
+    <div class="form">
+      <p v-show="required">YOU MUST FILL ALL FIELDS!</p>
       <label for="nombre">Product name</label>
       <br />
       <input type="text" name="name" placeholder="Product name..." v-model="name" />
@@ -99,10 +97,38 @@ export default {
 </script>
 
 <style scoped>
+.addProduct {
+  background-image: url("../assets/login-background2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 900px;
+  width: 1800px;
+  max-width: 100vw;
+  max-height: 85vh;
+  margin-top: 0rem;
+}
+
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 300px;
+  margin-top: -150px;
+  margin-left: -200px;
+  font-weight: bold;
+  background: #020103;
+  opacity: 80%;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0px 8px 6px -6px rgba(96, 86, 139, 0.548);
+}
+
 p {
   color: red;
 }
 label {
   padding: 2rem;
+  color: whitesmoke;
 }
 </style>

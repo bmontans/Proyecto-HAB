@@ -1,6 +1,7 @@
 <template>
   <div>
-    <vue-headful title="Lista de users" />
+    <vue-headful title="User Profile" />
+    <h2>Welcome to your personal user profile, {{ user.username }}.</h2>
     <div>
       <ul>
         <li>

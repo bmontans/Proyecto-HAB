@@ -1,11 +1,12 @@
 <template>
   <div class="box">
     <vue-headful title="Login" />
-    <img src="../assets/background-keyboard.jpg" alt />
     <div class="login">
       <h2>Login with your credentials</h2>
       <input type="text" placeholder="Username..." v-model="username" />
       <input type="password" placeholder="Password..." v-model="password" />
+      <br />
+      <br />
       <button @click="login(username, password)">LOGIN</button>
       <br />
       <br />
@@ -20,6 +21,7 @@
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   name: "Login",
@@ -47,7 +49,12 @@ export default {
           self.$router.push("/");
         })
         .catch(function(error) {
-          console.error(error);
+          Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "Wrong username or password!",
+            timer: 4000
+          });
         });
     }
   }
@@ -60,7 +67,14 @@ h2 {
 }
 
 .box {
-  background: #020103;
+  background-image: url("../assets/background-keyboard.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 900px;
+  width: 1800px;
+  max-width: 100vw;
+  max-height: 85vh;
+  margin-top: 0rem;
 }
 
 .text {
@@ -92,5 +106,15 @@ img {
   padding: 2.5rem;
   border-radius: 20px;
   box-shadow: 0px 8px 6px -6px rgba(96, 86, 139, 0.548);
+}
+
+button {
+  padding: 1rem;
+  font-size: 1.3rem;
+  box-shadow: 0px 8px 6px -6px rgba(59, 67, 73, 0.678);
+}
+
+input {
+  margin: 0.5rem;
 }
 </style>

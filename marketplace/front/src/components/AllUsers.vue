@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vue-headful title="Lista de users" />
+    <vue-headful title="User List" />
     <div>
       <ul>
         <li v-for="(user, index) in users" :key="user.id">

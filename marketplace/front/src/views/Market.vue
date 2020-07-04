@@ -1,6 +1,6 @@
 <template>
   <div class="market">
-    <vue-headful title="products" />
+    <vue-headful title="Marketplace" />
     <br />
     <br />
     <button @click="showBuscador()">PRODUCT SEARCH</button>
@@ -19,7 +19,8 @@
         />
       </p>
       <p>
-        <b>Articulo</b>
+        <b>Category</b>
+        <br />
         <br />
         <input v-model="category" type="radio" name="category" value="consoles" />Consoles
         <br />
@@ -237,5 +238,25 @@ export default {
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+}
+
+ul {
+  list-style: none;
+  justify-content: center;
+  margin: 2rem;
+  color: whitesmoke;
+  border: 2px solid black;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  width: 40%;
+
+  background: rgba(0, 0, 0, 0.322);
+  padding-bottom: 2rem;
+  border-radius: 20px;
 }
 </style>

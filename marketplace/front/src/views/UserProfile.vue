@@ -1,5 +1,6 @@
 <template>
   <div>
+    <vue-headful title="UserProfile" />
     <userinfo
       class="box"
       v-show="!editUser"

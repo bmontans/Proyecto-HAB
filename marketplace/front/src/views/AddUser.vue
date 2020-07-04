@@ -1,6 +1,6 @@
 <template>
   <div class="newUser">
-    <div>
+    <div class="addUser">
       <vue-headful title="Add user" />
       <div>
         <h1>Already got an account?</h1>
@@ -124,8 +124,30 @@ export default {
 
 <style scoped>
 .newUser {
-  background-image: url("../assets/newUser-background.jpg");
-  background-size: 100% 100%;
+  background-image: url("../assets/addUser-background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 900px;
+  width: 1800px;
+  max-width: 100vw;
+  max-height: 85vh;
+  margin-top: 0rem;
+}
+
+.addUser {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 500px;
+  margin-top: -300px;
+  margin-left: -200px;
+  font-weight: bold;
+  background: #020103;
+  opacity: 90%;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0px 8px 6px -6px rgba(96, 86, 139, 0.548);
 }
 
 .required {
@@ -133,5 +155,12 @@ export default {
 }
 label {
   padding: 2rem;
+  color: whitesmoke;
+}
+
+a {
+  font-weight: bold;
+  color: #ffff70;
+  text-transform: uppercase;
 }
 </style>
