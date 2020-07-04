@@ -1,16 +1,18 @@
 <template>
-  <div>
+  <div class="box">
     <vue-headful title="Login" />
+    <img src="../assets/background-keyboard.jpg" alt />
     <div class="login">
-      <h1>WELCOME TO</h1>
-      <img src="../assets/auct.png" alt />
       <h2>Login with your credentials</h2>
       <input type="text" placeholder="Username..." v-model="username" />
       <input type="password" placeholder="Password..." v-model="password" />
       <button @click="login(username, password)">LOGIN</button>
-      <div>
+      <br />
+      <br />
+      <div class="text">
         <br />If you're new and don't have an account, click
-        <router-link to="/add-user">here</router-link>to create a new user.
+        <router-link to="/add-user">here</router-link>
+        <br />to create a new user.
       </div>
     </div>
   </div>
@@ -53,11 +55,42 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  color: whitesmoke;
+}
+
+.box {
+  background: #020103;
+}
+
+.text {
+  color: whitesmoke;
+}
+
 a {
   font-weight: bold;
-  color: #cf4d6f;
+  color: #ffff70;
 }
+
+img {
+  max-height: 84.6vh;
+  max-width: 100vw;
+  background-size: contain;
+}
+
 .login {
-  margin: 10rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 300px;
+  margin-top: -150px;
+  margin-left: -200px;
+  font-weight: bold;
+  background: #020103;
+  opacity: 80%;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0px 8px 6px -6px rgba(96, 86, 139, 0.548);
 }
 </style>

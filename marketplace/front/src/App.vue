@@ -22,7 +22,7 @@ export default {
 body,
 html {
   margin: 0 auto;
-  background: #7e7e7e;
+  background: #2e3035;
   font-family: "Noto Sans", sans-serif;
 }
 #app {
@@ -47,5 +47,9 @@ a {
 a.router-link-exact-active {
   color: #ffff70;
   border-bottom: 3px solid #ffff70;
+}
+
+p {
+  color: whitesmoke;
 }
 </style>

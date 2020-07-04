@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="market">
     <vue-headful title="products" />
     <br />
     <br />
@@ -37,9 +37,9 @@
         <input type="reset" value="Borrar" />
       </p>
 
-      <button @click="searchProducts()">OBTENER RESULTADOS</button>
-      <!-- OBTENCION DE LOS RESULTADOS -->
-      <div>
+      <button @click="searchProducts()">SEARCH!</button>
+      <!-- OBTENCION DE LOS RESULTADOS DEL SEARCH -->
+      <div class="resultados">
         <ul v-for="searchResult in searchResults" :key="searchResult.id">
           <div>
             <li>{{ searchResult.name }}</li>
@@ -76,7 +76,7 @@ import showproducts from "@/components/ShowProducts.vue";
 import showallproducts from "@/components/ShowAllProducts.vue";
 
 export default {
-  name: "Home",
+  name: "Market",
   components: { showallproducts },
   data() {
     return {
@@ -182,7 +182,7 @@ export default {
           Swal.fire({
             icon: "warning",
             title: "Oops...",
-            text: "No existen coincidencias con tu criterio de busqueda",
+            text: "Your search produced no product matches!",
             timer: 4000
           });
         });
@@ -230,7 +230,6 @@ export default {
   left: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  width: 100%;
 }
 .modalBox {
   background: #fefefe;
@@ -238,20 +237,5 @@ export default {
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
-}
-
-b {
-  color: rgb(48, 175, 97);
-}
-
-h1 {
-  font-size: 3.5rem;
-  margin-left: 15rem;
-  margin-top: -5rem;
-}
-h2 {
-  margin-left: 15rem;
-  color: rgb(48, 175, 97);
-  margin-top: -2.5rem;
 }
 </style>

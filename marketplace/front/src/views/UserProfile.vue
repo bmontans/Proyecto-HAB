@@ -56,6 +56,8 @@
         <button @click="seeEditPassword = false">Back to profile</button>
       </div>
     </div>
+
+    <!-- LISTA DE PRODUCTOS COMPRADOS POR EL USUARIO -->
     <div class="userProductsPurchased">
       <ul>
         <li v-for="productAcquired in productsAcquired" :key="productAcquired.id">
@@ -83,7 +85,10 @@
         </li>
       </ul>
     </div>
+
+    <!-- LISTA DE PRODUCTOS PUESTO A LA VENTA POR EL USUARIO -->
     <div class="userProductsListed">
+      <h1>PRODUCTS LISTED IN THE MARKETPLACE</h1>
       <ul>
         <li v-for="product in products" :key="product.id">
           <img class="product_pic" :src="product.product_picture" alt="product pic" />
@@ -511,7 +516,6 @@ ul {
 }
 li {
   margin: 2rem;
-  border-radius: 1rem;
   border: 2px solid black;
   padding: 2rem;
   display: flex;
@@ -520,7 +524,10 @@ li {
   align-items: center;
   font-size: 1.1rem;
   font-weight: bold;
-  background: #a39594;
-  width: 80%;
+  width: 40%;
+
+  background: rgba(0, 0, 0, 0.322);
+  padding-bottom: 2rem;
+  border-radius: 20px;
 }
 </style>

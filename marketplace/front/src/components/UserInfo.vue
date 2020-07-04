@@ -41,7 +41,7 @@ export default {
 </script>
 
 <style scoped>
-.profile_pic {
+img.profile_pic {
   min-width: 150px;
   min-height: 150px;
   max-width: 500px;
@@ -56,7 +56,6 @@ ul {
 }
 li {
   margin: 2rem;
-  border-radius: 1rem;
   border: 2px solid black;
   padding: 2rem;
   display: flex;
@@ -65,7 +64,11 @@ li {
   align-items: center;
   font-size: 1.1rem;
   font-weight: bold;
-  background: #a39594;
-  width: 80%;
+  width: 40%;
+  text-align: left;
+
+  background: rgba(0, 0, 0, 0.322);
+  padding-bottom: 2rem;
+  border-radius: 20px;
 }
 </style>

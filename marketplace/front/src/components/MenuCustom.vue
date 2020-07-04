@@ -20,7 +20,7 @@
         <router-link to="/user-list">User List</router-link>
       </li>
       <li class="login">
-        <router-link class="loginA" to="/login">Login</router-link>
+        <router-link class="loginA" to="/login">Log in</router-link>
       </li>
       <li>
         <div class="button_cont" @click="logoutUser()">

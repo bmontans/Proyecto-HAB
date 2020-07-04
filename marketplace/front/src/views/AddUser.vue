@@ -1,43 +1,45 @@
 <template>
-  <div>
-    <vue-headful title="Add user" />
+  <div class="newUser">
     <div>
-      <h1>Already got an account?</h1>
-      <p>
-        Click
-        <router-link to="/login">here</router-link>, to log in with your credentials.
-      </p>
-    </div>
-    <br />
-    <p class="required" v-show="required">Filling all fields is required to set up your account!</p>
-    <!-- FORMULARIO -->
-    <div>
-      <label for="nombre">Username</label>
+      <vue-headful title="Add user" />
+      <div>
+        <h1>Already got an account?</h1>
+        <p>
+          Click
+          <router-link to="/login">here</router-link>, to log in with your credentials.
+        </p>
+      </div>
       <br />
-      <input type="text" name="username" placeholder="Username..." v-model="username" />
-      <br />
-      <br />
-      <label for="nombre">Address</label>
-      <br />
-      <input type="text" name="address" placeholder="Address..." v-model="address" />
-      <br />
-      <br />
-      <label for="password">Password</label>
-      <br />
-      <input type="password" name="password" placeholder="Password..." v-model="password" />
-      <br />
-      <br />
-      <label for="email">Email</label>
-      <br />
-      <input type="text" name="email" placeholder="Email..." v-model="email" />
-      <br />
-      <br />
-      <label for="birthdate">Birthdate</label>
-      <br />
-      <input type="date" name="birthdate" placeholder="Birthdate..." v-model="birthdate" />
-      <br />
-      <br />
-      <button @click="addUser(username, address, password, email, birthdate)">CREAR</button>
+      <p class="required" v-show="required">Filling all fields is required to set up your account!</p>
+      <!-- FORMULARIO -->
+      <div>
+        <label for="nombre">Username</label>
+        <br />
+        <input type="text" name="username" placeholder="Username..." v-model="username" />
+        <br />
+        <br />
+        <label for="nombre">Address</label>
+        <br />
+        <input type="text" name="address" placeholder="Address..." v-model="address" />
+        <br />
+        <br />
+        <label for="password">Password</label>
+        <br />
+        <input type="password" name="password" placeholder="Password..." v-model="password" />
+        <br />
+        <br />
+        <label for="email">Email</label>
+        <br />
+        <input type="text" name="email" placeholder="Email..." v-model="email" />
+        <br />
+        <br />
+        <label for="birthdate">Birthdate</label>
+        <br />
+        <input type="date" name="birthdate" placeholder="Birthdate..." v-model="birthdate" />
+        <br />
+        <br />
+        <button @click="addUser(username, address, password, email, birthdate)">CREAR</button>
+      </div>
     </div>
   </div>
 </template>
@@ -121,6 +123,11 @@ export default {
 </script>
 
 <style scoped>
+.newUser {
+  background-image: url("../assets/newUser-background.jpg");
+  background-size: 100% 100%;
+}
+
 .required {
   color: red;
 }

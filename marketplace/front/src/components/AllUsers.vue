@@ -68,4 +68,27 @@ li {
   background: #eee5e9;
   width: 30%;
 }
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+li {
+  margin: 2rem;
+  border: 2px solid black;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  width: 40%;
+
+  background: rgba(0, 0, 0, 0.322);
+  padding-bottom: 2rem;
+  border-radius: 20px;
+}
 </style>
