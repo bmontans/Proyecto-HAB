@@ -108,10 +108,11 @@ export default {
       axios
         .get("http://localhost:3000/products")
         .then(function(response) {
+          console.log(response);
           self.products = response.data.data;
           self.products = response.data.data.map(product => {
             product.product_picture =
-              "http://localhost:3000/uploads/" + self.product.product_picture;
+              "http://localhost:3000/uploads/" + product.product_picture;
             return product;
           });
         })
@@ -248,8 +249,7 @@ ul {
   border: 2px solid black;
   padding: 2rem;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
   font-size: 1.1rem;
   font-weight: bold;

@@ -1,9 +1,6 @@
 <template>
   <div class="footer">
-    <h4>
-      Brais Montáns Bouza 2020 -
-      <router-link to="/about">About</router-link>
-    </h4>
+    <h4>Brais Montáns Bouza 2020</h4>
   </div>
 </template>
 

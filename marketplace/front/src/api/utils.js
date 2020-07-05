@@ -133,3 +133,11 @@ export function logOut() {
 export function formatDateToDB(date) {
   return format(date, "MM-dd-yyyy");
 }
+
+export function isLogged() {
+  const authToken = localStorage.getItem("token");
+  if (authToken) {
+    return true;
+  }
+  return false;
+}

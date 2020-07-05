@@ -5,17 +5,19 @@
         <li v-for="(product, index) in products" :key="product.id">
           <div class="products">
             <img class="product_pic" :src="product.product_picture" alt="product pic" />
-            <p>PRODUCT NAME</p>
+            <h2>PRODUCT NAME:</h2>
             <p>{{ product.name }}</p>
             <br />
-            <p>CATEGORY</p>
+            <h2>CATEGORY:</h2>
             <p>{{ product.category }}</p>
+            <p />
             <br />
-            <p>DESCRIPTION</p>
+            <h2>DESCRIPTION:</h2>
             <p>{{ product.description }}</p>
             <br />
-            <p>PRICE</p>
+            <h2>PRICE:</h2>
             <p>{{ product.price }}€</p>
+            <p />
             <button @click="openModalEvent(index)">BUY</button>
           </div>
         </li>
@@ -67,5 +69,9 @@ li {
   background: rgba(0, 0, 0, 0.322);
   padding-bottom: 2rem;
   border-radius: 20px;
+}
+
+h2 {
+  color: #467599;
 }
 </style>

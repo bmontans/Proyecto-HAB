@@ -47,6 +47,7 @@ export default {
           localStorage.setItem("username", response.data.username);
           localStorage.setItem("id", response.data.id);
           self.$router.push("/");
+          location.reload();
         })
         .catch(function(error) {
           Swal.fire({
@@ -71,7 +72,6 @@ h2 {
   background-size: cover;
   background-repeat: no-repeat;
   height: 900px;
-  width: 1800px;
   max-width: 100vw;
   max-height: 85vh;
   margin-top: 0rem;

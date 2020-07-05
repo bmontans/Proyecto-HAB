@@ -102,7 +102,6 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   height: 900px;
-  width: 1800px;
   max-width: 100vw;
   max-height: 85vh;
   margin-top: 0rem;
@@ -129,6 +128,6 @@ p {
 }
 label {
   padding: 2rem;
-  color: whitesmoke;
+  color: #467599;
 }
 </style>

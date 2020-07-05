@@ -5,21 +5,24 @@
         <router-link to="/">Home</router-link>
       </li>
       <li>
+        <router-link to="/about">About</router-link>
+      </li>
+      <li>
         <router-link to="/market">Market</router-link>
       </li>
       <li>
-        <router-link to="/add-product">Add Product</router-link>
+        <router-link to="/add-product" v-show="seeIsLogged">Add Product</router-link>
       </li>
       <li>
-        <router-link to="/profile">Profile</router-link>
+        <router-link to="/profile" v-show="seeIsLogged">Profile</router-link>
       </li>
       <li>
-        <router-link to="/user-list">User List</router-link>
+        <router-link to="/user-list" v-if="seeIsLogged">User List</router-link>
       </li>
-      <li class="login">
+      <li class="login" v-show="!seeIsLogged">
         <router-link class="loginA" to="/login">Log in</router-link>
       </li>
-      <li>
+      <li v-if="seeIsLogged">
         <div class="button_cont" @click="logoutUser()">
           <a class="example_c" target="_blank" rel="nofollow noopener">Logout</a>
         </div>
@@ -30,16 +33,29 @@
 </template>
 
 <script>
+import { isLogged } from "../api/utils";
 import { clearLogin } from "../api/utils";
 import { checkAdmin } from "../api/utils";
 
 export default {
   name: "MenuCustom",
+  data() {
+    return {
+      seeIsLogged: false
+    };
+  },
   methods: {
     logoutUser() {
       this.$router.push("/");
+      location.reload();
       return clearLogin();
+    },
+    showIsLogged() {
+      this.seeIsLogged = isLogged();
     }
+  },
+  created() {
+    this.showIsLogged();
   }
 };
 </script>
@@ -102,5 +118,9 @@ a:hover {
   transition: all 0.4s ease 0s;
   color: #ffff70;
   border-bottom: 3px solid #ffff70;
+}
+
+h3 {
+  color: whitesmoke;
 }
 </style>

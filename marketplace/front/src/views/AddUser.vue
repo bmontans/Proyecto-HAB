@@ -128,7 +128,6 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   height: 900px;
-  width: 1800px;
   max-width: 100vw;
   max-height: 85vh;
   margin-top: 0rem;
@@ -151,7 +150,7 @@ export default {
 }
 
 .required {
-  color: red;
+  color: #d64045;
 }
 label {
   padding: 2rem;

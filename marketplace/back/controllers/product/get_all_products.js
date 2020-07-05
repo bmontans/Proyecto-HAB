@@ -1,6 +1,6 @@
-require('dotenv').config();
-const { getConnection } = require('../../db');
-const { generateError } = require('../../helpers');
+require("dotenv").config();
+const { getConnection } = require("../../db");
+const { generateError } = require("../../helpers");
 
 async function getAllProducts(req, res, next) {
   let connection;
@@ -15,7 +15,8 @@ async function getAllProducts(req, res, next) {
         description,
         price,
         creation_date,
-        modification_date
+        modification_date,
+        product_picture
         FROM product
         ORDER BY creation_date`
     );
@@ -23,12 +24,12 @@ async function getAllProducts(req, res, next) {
     const [productsData] = result;
 
     if (!productsData.length) {
-      throw generateError('This page is empty.', 401);
+      throw generateError("This page is empty.", 401);
     }
 
     res.send({
-      staus: 'ok',
-      data: productsData
+      staus: "ok",
+      data: productsData,
     });
   } catch (error) {
     next(error);

@@ -40,7 +40,6 @@ a {
   background-size: cover;
   background-repeat: no-repeat;
   height: 900px;
-  width: 1800px;
   max-width: 100vw;
   max-height: 85vh;
   margin-top: 0rem;
@@ -54,8 +53,8 @@ a {
   left: 50%;
   width: 400px;
   height: 350px;
-  margin-top: -150px;
-  margin-left: -200px;
+  margin-top: -200px;
+  margin-left: -300px;
   font-weight: bold;
   background: #020103;
   opacity: 90%;
