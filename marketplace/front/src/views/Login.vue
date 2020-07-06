@@ -97,9 +97,9 @@ img {
   top: 50%;
   left: 50%;
   width: 400px;
-  height: 300px;
-  margin-top: -150px;
-  margin-left: -200px;
+  height: 350px;
+  margin-top: -200px;
+  margin-left: -250px;
   font-weight: bold;
   background: #020103;
   opacity: 80%;

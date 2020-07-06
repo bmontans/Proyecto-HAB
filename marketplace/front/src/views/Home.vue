@@ -52,7 +52,7 @@ a {
   width: 400px;
   height: 350px;
   margin-top: -200px;
-  margin-left: -300px;
+  margin-left: -250px;
   font-weight: bold;
   background: #020103;
   opacity: 90%;

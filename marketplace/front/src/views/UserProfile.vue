@@ -107,14 +107,14 @@
           <h3>Price</h3>
           <p>{{ product.price }}€</p>
 
-          <button @click="showProduct(product)">Editar</button>
-          <button @click="deleteProduct(product)">Borrar</button>
+          <button @click="showProduct(product)">Edit</button>
+          <button @click="deleteProduct(product)">Delete</button>
         </li>
       </ul>
     </div>
     <div class="editProduct" v-show="seeEditProduct">
       <div class="editProductBox">
-        <h4>Editar producto</h4>
+        <h4>Edit producto</h4>
         <h2>PRODUCT NAME</h2>
         <input type="text" v-model="newProductName" placeholder="Product name" />
         <br />
