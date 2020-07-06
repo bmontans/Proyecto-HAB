@@ -102,7 +102,7 @@ export default {
   background-repeat: no-repeat;
   height: 900px;
   max-width: 100vw;
-  max-height: 85vh;
+  max-height: 81.7vh;
   margin-top: 0rem;
 }
 

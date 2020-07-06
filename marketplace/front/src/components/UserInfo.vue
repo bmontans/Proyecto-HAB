@@ -8,7 +8,7 @@
             <h2>Welcome to your personal profile, {{ user.username }}.</h2>
             <br />
             <p>
-              In this view you can edit your personal info, change your password, upload a profile picture
+              In this page you can edit your personal info, change your password, upload a profile picture
               <br />and check both your products listed and your products purchased in the marketplace!
             </p>
           </div>

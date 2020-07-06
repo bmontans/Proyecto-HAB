@@ -73,7 +73,7 @@
           <h3>Purchase date</h3>
           <p>{{ productAcquired.purchase_date | moment("D-MM-YYYY")}}</p>
 
-          <button @click="openModal(productAcquired)">Valorar</button>
+          <button @click="openModal(productAcquired)">RATE</button>
           <div v-show="modal" class="modal">
             <div class="modalBox">
               <h3>Rate this product.</h3>
@@ -85,8 +85,7 @@
               <textarea v-model="comment" name="comment" id="comment" cols="100" rows="6"></textarea>
               <br />
               <button @click="ratingProduct(productAcquired, rating, comment)">Rate this purchase</button>
-              <br />
-              <button @click="closeModal()">Volver</button>
+              <button @click="closeModal()">Return</button>
             </div>
           </div>
         </li>
@@ -608,6 +607,10 @@ li {
 }
 h2,
 h3 {
+  color: #467599;
+}
+
+div h2 {
   color: #467599;
 }
 

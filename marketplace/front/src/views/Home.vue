@@ -7,10 +7,7 @@
       <p>Old equipment laying around in your room, gathering dust?</p>
       <p>Looking for a brand new or second hand monitor to replace your current one?</p>
       <p>SYNAPSE offers an easy solution for your technological needs.</p>
-      <p>
-        <router-link to="/add-user">SET UP</router-link>an account,
-        <router-link to="/login">LOG IN</router-link>with your credentials, and sell (or buy!) products from other users.
-      </p>
+      <p>SET UP an account, LOG IN with your credentials, and sell (or buy!) products from other users.</p>
       <p>No questions asked. No intermediaries. Just one click.</p>
     </div>
   </div>
@@ -42,7 +39,7 @@ a {
   background-repeat: no-repeat;
   height: 900px;
   max-width: 100vw;
-  max-height: 85vh;
+  max-height: 81.7vh;
   margin-top: 0rem;
 }
 

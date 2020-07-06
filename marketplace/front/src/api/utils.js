@@ -101,14 +101,11 @@ export function getAdmin() {
 
 // COMPROBAR ROL //
 export function checkAdmin() {
-  let role = false;
-  let admin = getAdmin();
-  if (admin === "true") {
-    role = true;
-  } else {
-    role = false;
+  const role = localStorage.getItem("role");
+  if (role === "admin") {
+    return true;
   }
-  return role;
+  return false;
 }
 export function deleteAuth_Token() {
   axios.defaults.headers.common["Authorization"] = "";

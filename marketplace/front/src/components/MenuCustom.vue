@@ -17,7 +17,7 @@
         <router-link to="/profile" v-show="seeIsLogged">Profile</router-link>
       </li>
       <li>
-        <router-link to="/user-list" v-if="seeIsLogged">User List</router-link>
+        <router-link to="/user-list" v-if="seeIsAdmin">User List</router-link>
       </li>
       <li class="login" v-show="!seeIsLogged">
         <router-link class="loginA" to="/login">Log in</router-link>
@@ -41,7 +41,8 @@ export default {
   name: "MenuCustom",
   data() {
     return {
-      seeIsLogged: false
+      seeIsLogged: false,
+      seeIsAdmin: true
     };
   },
   methods: {
@@ -52,10 +53,14 @@ export default {
     },
     showIsLogged() {
       this.seeIsLogged = isLogged();
+    },
+    showIsAdmin() {
+      this.seeIsAdmin = checkAdmin();
     }
   },
   created() {
     this.showIsLogged();
+    this.showIsAdmin();
   }
 };
 </script>

@@ -8,7 +8,7 @@
     <!-- FORMULARIO PARA BUSCADOR -->
     <div class="buscador" v-show="advancedSearch">
       <p>
-        <b>Nombre</b>
+        <b>PRODUCT NAME</b>
         <br />
         <input
           v-model="name"
@@ -18,19 +18,21 @@
           placeholder="Search for any product!"
         />
       </p>
+      <div class="catInput">
+        <p>
+          <b>CATEGORY</b>
+          <br />
+          <br />
+          <input v-model="category" type="radio" name="category" value="consoles" />Consoles
+          <br />
+          <input v-model="category" type="radio" name="category" value="keyboard" />Keyboard
+          <br />
+          <input v-model="category" type="radio" name="category" value="mices" />Mices
+          <br />
+        </p>
+      </div>
       <p>
-        <b>Category</b>
-        <br />
-        <br />
-        <input v-model="category" type="radio" name="category" value="consoles" />Consoles
-        <br />
-        <input v-model="category" type="radio" name="category" value="keyboard" />Keyboard
-        <br />
-        <input v-model="category" type="radio" name="category" value="mices" />Mices
-        <br />
-      </p>
-      <p>
-        <b>price</b>
+        <b>PRICE</b>
         <br />
         <input v-model="price" type="number" name="price" />
       </p>
@@ -38,16 +40,18 @@
         <input type="reset" value="Borrar" />
       </p>
 
-      <button @click="searchProducts()">SEARCH!</button>
+      <button class="search" @click="searchProducts()">SEARCH!</button>
       <!-- OBTENCION DE LOS RESULTADOS DEL SEARCH -->
       <div class="resultados">
-        <ul v-for="searchResult in searchResults" :key="searchResult.id">
-          <div>
-            <li>{{ searchResult.name }}</li>
-            <!--             <li>{{searchResult.product_picture}}</li> -->
-            <li>{{ searchResult.category }}</li>
-            <li>{{ searchResult.price }}€</li>
-          </div>
+        <ul>
+          <li v-for="searchResult in searchResults" :key="searchResult.id">
+            <div>
+              <p>{{ searchResult.name }}</p>
+              <p>{{ searchResult.category }}</p>
+              <p>{{ searchResult.price }}€</p>
+              <button @click="buyProduct">BUY</button>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
@@ -243,20 +247,32 @@ export default {
 
 ul {
   list-style: none;
-  justify-content: center;
-  margin: 2rem;
-  color: whitesmoke;
-  border: 2px solid black;
-  padding: 2rem;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+li {
+  margin: 2rem;
+  padding: 2rem;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   font-size: 1.1rem;
-  font-weight: bold;
-  width: 80%;
+  width: 40%;
+  text-align: left;
 
   background: rgba(0, 0, 0, 0.322);
   padding-bottom: 2rem;
   border-radius: 20px;
+}
+
+.resultados li {
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+b {
+  color: #467599;
 }
 </style>

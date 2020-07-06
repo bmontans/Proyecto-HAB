@@ -80,4 +80,10 @@ img {
   border-radius: 50%;
   border: 2px solid #467599;
 }
+
+button {
+  padding: 1rem;
+  font-size: 1.3rem;
+  box-shadow: 0px 8px 6px -6px rgba(59, 67, 73, 0.678);
+}
 </style>

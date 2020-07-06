@@ -69,6 +69,6 @@ img {
   max-width: 500px;
   max-height: 500px;
   border-radius: 50%;
-  border: 3px solid black;
+  border: 4px solid #467599;
 }
 </style>
