@@ -63,7 +63,7 @@ async function processAndSavePhoto(uploadedFile) {
   const FileInfo = await finalImage.metadata();
 
   if (FileInfo.width > 100) {
-    finalImage.resize(150);
+    finalImage.resize(450);
   }
 
   await finalImage.toFile(path.join(fileUploadPath, savedFileName));

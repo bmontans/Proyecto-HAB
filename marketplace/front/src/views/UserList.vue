@@ -9,7 +9,7 @@
     ></allusers>
     <div class="modal" v-show="editUser">
       <div class="modalBox">
-        <p class="editUser">Edita los datos del User</p>
+        <h3>EDIT USER</h3>
         <p>Username:</p>
         <input type="text" v-model="newUsername" placeholder="Username" />
         <br />

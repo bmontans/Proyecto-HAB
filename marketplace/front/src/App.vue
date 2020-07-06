@@ -52,4 +52,27 @@ a.router-link-exact-active {
 p {
   color: whitesmoke;
 }
+
+button {
+  margin-right: 0.4rem;
+  box-shadow: inset 0px 1px 0px 0px #bee2f9;
+  background: linear-gradient(to bottom, #63b8ee 5%, #468ccf 100%);
+  background-color: #63b8ee;
+  border-radius: 6px;
+  border: 1px solid #3866a3;
+  display: inline-block;
+  cursor: pointer;
+  color: #14396a;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #7cacde;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+li {
+  box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.248);
+}
 </style>

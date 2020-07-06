@@ -106,6 +106,13 @@ li:hover {
 
 .example_c {
   color: #a22c29;
+  cursor: pointer;
+}
+
+div a.example_c:hover {
+  transition: all 0.4s ease 0s;
+  color: #a22c29;
+  border-bottom: 3px solid #a22c29;
 }
 
 a {

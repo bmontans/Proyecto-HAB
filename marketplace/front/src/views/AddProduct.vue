@@ -25,9 +25,8 @@
       <input type="text" name="price" placeholder="Price..." v-model="price" />€
       <br />
       <br />
-      <button
-        @click="addProduct(name, category, description, price)"
-      >LIST YOUR PRODUCT IN THE MARKETPLACE</button>
+      <br />
+      <button @click="addProduct(name, category, description, price)">LIST YOUR PRODUCT</button>
     </div>
   </div>
 </template>
@@ -129,5 +128,6 @@ p {
 label {
   padding: 2rem;
   color: #467599;
+  text-transform: uppercase;
 }
 </style>

@@ -5,27 +5,31 @@
       class="box"
       v-show="!editUser"
       :user="user"
-      v-on:borrar="deleteUsers"
       v-on:editar="showEditText"
+      v-on:editarPassword="userShowEditPassword"
+      v-on:myProducts="showMyProducts"
+      v-on:myPurchases="showBuyProducts"
     ></userinfo>
-    <button @click="userShowEditPassword()">Update your Password</button>
+    <!--     <button @click="userShowEditPassword()">Update your Password</button> -->
     <div class="modal" v-show="editUser">
       <div class="modalBox">
-        <p>Username:</p>
+        <h2>USERNAME</h2>
         <input type="text" v-model="newUsername" placeholder="Username" disabled />
         <br />
-        <p>New email:</p>
+        <h2>NEW EMAIL</h2>
         <input type="text" v-model="newEmail" placeholder="Email" />
         <br />
-        <p>New address:</p>
+        <h2>NEW ADDRESS</h2>
         <input type="text" v-model="newAddress" placeholder="Address" />
+        <br />
         <br />
         <button @click="updateUsers()">UPDATE</button>
         <button @click="editUser = false">CANCEL</button>
         <br />
+        <br />
         <div class="editAvatar">
           <label>
-            If you you want update your avatar
+            You can also upload your avatar directly from your PC
             <input
               type="file"
               id="avatar"
@@ -41,15 +45,15 @@
     <!-- EDICION DE CONTRASEÑA -->
     <div class="password" v-show="seeEditPassword">
       <div class="passwordBox">
-        <p class="editPassword">EDIT YOUR PASSWORD</p>
-        <p>OLD PASSWORD</p>
+        <h2>OLD PASSWORD</h2>
         <input type="password" v-model="oldPassword" placeholder="Your old password" />
         <br />
-        <p>NEW PASSWORD</p>
+        <h2>NEW PASSWORD</h2>
         <input type="password" v-model="password" placeholder="New password" />
         <br />
-        <p>REPEAT PASSWORD</p>
+        <h2>REPEAT PASSOWRD</h2>
         <input type="password" v-model="passwordRepeat" placeholder="Repeat your new Paswword" />
+        <br />
         <br />
         <button @click="updatePassword()">Update</button>
         <button @click="seeEditPassword = false">Back to profile</button>
@@ -57,14 +61,17 @@
     </div>
 
     <!-- LISTA DE PRODUCTOS COMPRADOS POR EL USUARIO -->
-    <div class="userProductsPurchased">
-      <h1>PRODUCTS PURCHASED</h1>
+    <div class="userProductsPurchased" v-show="!articulosComprados">
       <ul>
         <li v-for="productAcquired in productsAcquired" :key="productAcquired.id">
-          <p>Transaction ID: {{ productAcquired.pk_id}}</p>
-          <p>Price: {{ productAcquired.price }}€</p>
-          <p>Sent to: {{ productAcquired.address }}</p>
-          <p>Purchase Date: {{ productAcquired.purchase_date | moment("D-MM-YYYY")}}</p>
+          <h3>Transaction ID</h3>
+          <p>{{ productAcquired.pk_id}}</p>
+          <h3>Price</h3>
+          <p>{{ productAcquired.price }}€</p>
+          <h3>Sent to:</h3>
+          <p>{{ productAcquired.address }}</p>
+          <h3>Purchase date</h3>
+          <p>{{ productAcquired.purchase_date | moment("D-MM-YYYY")}}</p>
 
           <button @click="openModal(productAcquired)">Valorar</button>
           <div v-show="modal" class="modal">
@@ -87,15 +94,20 @@
     </div>
 
     <!-- LISTA DE PRODUCTOS PUESTO A LA VENTA POR EL USUARIO -->
-    <div class="userProductsListed">
-      <h1>PRODUCTS LISTED IN THE MARKETPLACE</h1>
+    <div class="userProductsListed" v-show="!showProducts">
       <ul>
         <li v-for="product in products" :key="product.id">
           <img class="product_pic" :src="product.product_picture" alt="product pic" />
-          <p>Product name: {{ product.name }}</p>
-          <p>Category: {{ product.category }}</p>
-          <p>Description: {{ product.description }}</p>
-          <p>Price: {{ product.price }}€</p>
+          <p>{{product.pk_id}}</p>
+          <h3>Product name</h3>
+          <p>{{ product.name }}</p>
+          <h3>Category</h3>
+          <p>{{ product.category }}</p>
+          <h3>Description</h3>
+          <p>{{ product.description }}</p>
+          <h3>Price</h3>
+          <p>{{ product.price }}€</p>
+
           <button @click="showProduct(product)">Editar</button>
           <button @click="deleteProduct(product)">Borrar</button>
         </li>
@@ -104,14 +116,21 @@
     <div class="editProduct" v-show="seeEditProduct">
       <div class="editProductBox">
         <h4>Editar producto</h4>
-
+        <h2>PRODUCT NAME</h2>
         <input type="text" v-model="newProductName" placeholder="Product name" />
         <br />
+        <h2>PRODUCT DESCRIPTION</h2>
         <input type="text" v-model="newProductDescription" placeholder="Price" />
         <br />
+        <h2>PRODUCT PRICE</h2>
         <input type="text" v-model="newProductPrice" placeholder="Description" />
         <br />
-
+        <input
+          type="file"
+          id="productPicture"
+          ref="productPicture"
+          @change="handleFileUploadProducto()"
+        />
         <br />
         <button @click="editProduct()">Edit your product info</button>
         <br />
@@ -154,7 +173,10 @@ export default {
       profilePicture: "",
       rating: 0,
       comment: "",
-      modal: false
+      modal: false,
+      productPicture: "",
+      showProducts: false,
+      articulosComprados: false
     };
   },
   methods: {
@@ -264,11 +286,20 @@ export default {
         .get("http://localhost:3000/user/products/" + data)
         .then(function(response) {
           console.log(response);
+          self.showProducts = true;
           self.products = response.data.data;
+          self.products = response.data.data.map(product => {
+            product.product_picture =
+              "http://localhost:3000/uploads/" + product.product_picture;
+            return product;
+          });
         })
         .catch(function(error) {
           console.error(error.response.data.message);
         });
+    },
+    showMyProducts() {
+      this.showProducts = !this.showProducts;
     },
     showEditText(data) {
       this.editUser = true;
@@ -290,12 +321,16 @@ export default {
       this.newPassword = "";
       this.newPasswordRepeat = "";
     },
+    handleFileUploadProducto() {
+      this.productPicture = this.$refs.productPicture.files[0];
+    },
     editProduct() {
       const self = this;
       const id = self.id;
       const idUser = localStorage.getItem("id");
       const token = localStorage.getItem("token");
       let formData = new FormData();
+      formData.append("product_picture", self.productPicture);
       formData.append("name", self.newProductName);
       formData.append("description", self.newProductDescription);
       formData.append("price", self.newProductPrice);
@@ -328,7 +363,7 @@ export default {
     },
     deleteProduct(product) {
       const self = this;
-      const id = product.id;
+      const id = product.pk_id;
       const idUser = localStorage.getItem("id");
       const token = localStorage.getItem("token");
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -406,7 +441,7 @@ export default {
       axios
         .get("http://localhost:3000/user/products/acquired/" + data)
         .then(function(response) {
-          console.log(response);
+          self.articulosComprados = true;
           self.productsAcquired = response.data.data;
         })
         .catch(function(error) {
@@ -470,11 +505,16 @@ export default {
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
 }
+
+.modal label {
+  color: #467599;
+}
 .modalBox {
   background: #2e3035;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
+  border-radius: 5px;
   width: 80%;
 }
 
@@ -495,6 +535,30 @@ export default {
   width: 80%;
 }
 
+.buttons {
+  padding-top: 3rem;
+  text-align: left;
+  margin-left: 6rem;
+}
+button {
+  margin-right: 0.4rem;
+  box-shadow: inset 0px 1px 0px 0px #bee2f9;
+  background: linear-gradient(to bottom, #63b8ee 5%, #468ccf 100%);
+  background-color: #63b8ee;
+  border-radius: 6px;
+  border: 1px solid #3866a3;
+  display: inline-block;
+  cursor: pointer;
+  color: #14396a;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #7cacde;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 .password {
   position: fixed;
   top: 0;
@@ -512,6 +576,10 @@ export default {
   width: 80%;
 }
 
+.passwordBox h2 {
+  color: black;
+}
+
 .editAvatar {
   color: whitesmoke;
 }
@@ -525,18 +593,36 @@ ul {
 }
 li {
   margin: 2rem;
-  border: 2px solid black;
   padding: 2rem;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 1.1rem;
   font-weight: bold;
-  width: 70%;
+  width: 40%;
+  text-align: left;
 
   background: rgba(0, 0, 0, 0.322);
   padding-bottom: 2rem;
   border-radius: 20px;
+}
+h2,
+h3 {
+  color: #467599;
+}
+
+h3 {
+  font-size: 22px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+img {
+  min-width: 450px;
+  min-height: 450px;
+  max-width: 500px;
+  max-height: 500px;
+  border-radius: 50%;
+  border: 2px solid #467599;
 }
 </style>

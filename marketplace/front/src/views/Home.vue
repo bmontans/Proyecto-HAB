@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <vue-headful title="SYNAPSE" />
     <div class="descripcion">
       <h1>WELCOME TO SYNAPSE</h1>
       <br />
@@ -33,7 +34,7 @@ img {
 a {
   text-transform: uppercase;
   font-weight: bold;
-  color: #ffff70;
+  color: #467599;
 }
 .home {
   background-image: url("../assets/home-background2.jpg");
@@ -67,6 +68,8 @@ a {
 h1 {
   text-align: center;
   color: whitesmoke;
+  border-bottom: 2px solid #467599;
+  margin-bottom: 1rem;
 }
 </style>
 

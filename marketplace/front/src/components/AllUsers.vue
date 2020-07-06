@@ -41,13 +41,6 @@ export default {
 </script>
 
 <style scoped>
-img {
-  min-width: 150px;
-  min-height: 150px;
-  max-width: 250x;
-  max-height: 250px;
-}
-
 ul {
   list-style: none;
   display: flex;
@@ -57,39 +50,25 @@ ul {
 }
 li {
   margin: 2rem;
-  border-radius: 3rem;
-  border: 2px solid black;
   padding: 2rem;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 1.1rem;
-  font-weight: bold;
-  background: #eee5e9;
-  width: 30%;
-}
-ul {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-li {
-  margin: 2rem;
-  border: 2px solid black;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.1rem;
-  font-weight: bold;
   width: 40%;
+  text-align: left;
 
   background: rgba(0, 0, 0, 0.322);
   padding-bottom: 2rem;
   border-radius: 20px;
+}
+
+img {
+  min-width: 450px;
+  min-height: 450px;
+  max-width: 500px;
+  max-height: 500px;
+  border-radius: 50%;
+  border: 3px solid black;
 }
 </style>

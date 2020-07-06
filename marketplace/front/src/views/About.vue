@@ -68,10 +68,10 @@ h1 {
 
 .libraries {
   font-weight: bold;
-  background: #020103;
+  background: rgba(0, 0, 0, 0.322);
   opacity: 80%;
   padding: 2.5rem;
   border-radius: 20px;
-  box-shadow: 0px 8px 6px -6px rgba(96, 86, 139, 0.548);
+  box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.248);
 }
 </style>

@@ -56,15 +56,13 @@ ul {
 }
 li {
   margin: 2rem;
-  border: 2px solid black;
   padding: 2rem;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 1.1rem;
-  font-weight: bold;
-  width: 80%;
+  width: 40%;
+  text-align: left;
 
   background: rgba(0, 0, 0, 0.322);
   padding-bottom: 2rem;
@@ -73,5 +71,13 @@ li {
 
 h2 {
   color: #467599;
+}
+img {
+  min-width: 450px;
+  min-height: 450px;
+  max-width: 500px;
+  max-height: 500px;
+  border-radius: 50%;
+  border: 2px solid #467599;
 }
 </style>

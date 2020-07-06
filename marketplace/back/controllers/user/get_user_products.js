@@ -12,7 +12,7 @@ async function getUserProducts(req, res, next) {
     const { id } = req.params;
 
     const [respuesta] = await connection.query(
-      `SELECT  name, category, description, price, pk_id FROM product WHERE id_user=?
+      `SELECT  name, category, description, price, pk_id, product_picture FROM product WHERE id_user=?
   ORDER BY creation_date`,
       [id]
     );
